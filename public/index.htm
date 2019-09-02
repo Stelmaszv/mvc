@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>
+            [#Title#]
+        </title>
+        <loop name="styles">
+            <link rel="stylesheet" type="text/css" href="[#name#]">
+        </loop name="styles">
+    </head>
+    <body>
+        [#heder#]
+        [#view#]
+        [#footer#]
+        <loop name="scripts">
+                <script src="[#name#]"></script>
+        </loop name="scripts">
+    </body>
+</html>

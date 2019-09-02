@@ -1,0 +1,10 @@
+<?php
+class home extends controler{
+    function addElments(){
+        $this->templete->CIf('!session',!auth::ifAuth());
+        $this->templete->CIf('session',auth::ifAuth());
+        if(auth::ifAuth()) {
+            $this->templete->CIf('admin', auth::ifLevel('admin'));
+        }
+    }
+}
