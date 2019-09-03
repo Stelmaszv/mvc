@@ -1,13 +1,5 @@
 <?php
-abstract class actionlist{
-    public function __construct($action){
-        if(isset($action['submit'])){
-            $this->action=$action['submit'];
-            $this->execute($action);
-        }
-    }
-    abstract function execute($array);
-}
+namespace App;
 abstract class action{
     abstract protected function execute($array);
     static function issetAction($value=false){
@@ -19,14 +11,3 @@ abstract class action{
         }
     }
 }
-class actionPost extends actionlist{
-    function execute($array){
-        $action=[];
-        $action['test']= new testPost($array);
-        $action['loginStart']= new loginAction($array);
-        $action['register']= new registerAction($array);
-        $action[$this->action]->execute($array);
-    }
-}
-
-?>

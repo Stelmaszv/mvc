@@ -1,4 +1,5 @@
 <?php
+namespace App;
     class debag{
         static function varDump($array){
             echo '<pre>';

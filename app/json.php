@@ -1,4 +1,5 @@
 <?php
+namespace App;
 class json{
     static function json_encode($array){
         return json_encode($array);

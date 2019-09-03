@@ -1,9 +1,10 @@
 <?php
-    class sql{  
+namespace App;
+    class sql{
         private $com;
         public $sql;
        function __construct($sql=false){
-          $this->com = new mysqli(servername,username,password,dbname);
+          $this->com = new \MySQLi(servername,username,password,dbname);
           $this->sql=$sql;
        }
        public function SqlloopOne($sql=false){
@@ -44,4 +45,5 @@
         }
 
     }
+
 ?>

@@ -1,0 +1,13 @@
+{
+  "autoload": {
+    "psr-4": {
+      "App\\": "app",
+      "controler\\": "controler",
+      "action\\": "action",
+      "model\\": "model"
+    }
+  },
+  "require": {
+    "cboden/ratchet": "^0.4"
+  }
+}

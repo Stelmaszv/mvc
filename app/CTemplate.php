@@ -1,4 +1,5 @@
 <?php
+namespace App;
 class CTemplate {
   var $code;
   var $keywords;

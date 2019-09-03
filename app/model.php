@@ -1,9 +1,6 @@
 <?php
-    interface modelCi{
-        function faind($id,$idFieldName);
-        function showAll($limit);
-    }
-    class model implements modelCi {
+    namespace App;
+    class model extends modelCi {
         var $table;
         private $sql;
         public function __construct(){

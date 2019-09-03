@@ -1,4 +1,5 @@
 <?php
+namespace App;
 class webCrawler{
     public $url;
     public function __construct($url){
