@@ -4,7 +4,8 @@
       "App\\": "app",
       "controler\\": "controler",
       "action\\": "action",
-      "model\\": "model"
+      "model\\": "model",
+      "Wsaction\\": "wsaction"
     }
   },
   "require": {

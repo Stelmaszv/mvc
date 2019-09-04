@@ -1,4 +1,3 @@
-console.log('it works')
 $(document).ready(function(){
     var conn = new WebSocket('ws://localhost:8080');
     var chatForm=$(".chat");

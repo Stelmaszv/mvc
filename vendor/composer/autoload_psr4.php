@@ -9,6 +9,7 @@ return array(
     'model\\' => array($baseDir . '/model'),
     'controler\\' => array($baseDir . '/controler'),
     'action\\' => array($baseDir . '/action'),
+    'Wsaction\\' => array($baseDir . '/wsaction'),
     'Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Polyfill\\Intl\\Idn\\' => array($vendorDir . '/symfony/polyfill-intl-idn'),

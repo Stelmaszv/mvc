@@ -8,7 +8,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable />
@@ -64,11 +64,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Ratchet" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\mvc\public" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\mvc\css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\mvc\public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -103,7 +103,9 @@
       <workItem from="1567424151767" duration="79000" />
       <workItem from="1567424244773" duration="5860000" />
       <workItem from="1567512332623" duration="227000" />
-      <workItem from="1567512575222" duration="9514000" />
+      <workItem from="1567512575222" duration="11293000" />
+      <workItem from="1567524871419" duration="2204000" />
+      <workItem from="1567590784182" duration="17724000" />
     </task>
     <servers />
   </component>
@@ -122,5 +124,15 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/WebSocketControleronMessage.php</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

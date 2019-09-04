@@ -3,7 +3,7 @@ $styles[0]=array(
     'name' => 'public/css/mian.css'
 );
 $scripts[0]=array(
-    'name' => 'public/js/main.js'
+    'name' => 'assets/js/websocket'
 );
 $gards[0]=array(
     'route'=>'login',

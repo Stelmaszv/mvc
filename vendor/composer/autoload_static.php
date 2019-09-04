@@ -29,6 +29,10 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         array (
             'action\\' => 7,
         ),
+        'W' => 
+        array (
+            'Wsaction\\' => 9,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php72\\' => 23,
@@ -76,6 +80,10 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         'action\\' => 
         array (
             0 => __DIR__ . '/../..' . '/action',
+        ),
+        'Wsaction\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/wsaction',
         ),
         'Symfony\\Polyfill\\Php72\\' => 
         array (
