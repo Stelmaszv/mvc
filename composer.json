@@ -5,7 +5,8 @@
       "controler\\": "controler",
       "action\\": "action",
       "model\\": "model",
-      "Wsaction\\": "wsaction"
+      "Wsaction\\": "wsaction",
+      "seeds\\": "seeds"
     }
   },
   "require": {

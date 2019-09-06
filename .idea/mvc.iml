@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/model" isTestSource="false" packagePrefix="model\" />
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/controler" isTestSource="false" packagePrefix="controler\" />
+      <sourceFolder url="file://$MODULE_DIR$/seeds" isTestSource="false" packagePrefix="seeds\" />
       <sourceFolder url="file://$MODULE_DIR$/wsaction" isTestSource="false" packagePrefix="Wsaction\" />
       <sourceFolder url="file://$MODULE_DIR$/action" isTestSource="false" packagePrefix="action\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cboden/ratchet" />
