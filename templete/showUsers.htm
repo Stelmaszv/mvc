@@ -1,3 +1,16 @@
 <loop name="users">
     <div>[#login#]</div>
 </loop name="users">
+<br>
+
+<if name="back">
+    <a href="[#back#]">back</a>
+</if name="back">
+<a href="[#first#]">1</a>
+<loop name="pages">
+    <a href="[#link#]">[#page#] </a>
+</loop name="pages">
+<a href="[#lost#]">[#lostNumber#]</a>
+<if name="next">
+    <a href="[#next#]">next</a>
+</if name="next">

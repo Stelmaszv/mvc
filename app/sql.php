@@ -4,8 +4,12 @@ namespace App;
         private $com;
         public $sql;
        function __construct($sql=false){
-          $this->com = new \MySQLi(servername,username,password,dbname);
-          $this->sql=$sql;
+           try {
+               $this->com = new \MySQLi(servername, username, password, dbname);
+               $this->sql = $sql;
+           }catch (Exception $exception){
+               echo $exception->getMessage();
+           }
        }
        public function SqlloopOne($sql=false){
           $ret=array();
@@ -33,8 +37,7 @@ namespace App;
             return count($this->SqlloopAll($sql));
        }
        public function MsQuery($sql){
-            mysqli_query($this->com, $sql);
-
+           return  mysqli_query($this->com, $sql);
        }
        public function escepeString($word){
             return mysqli_real_escape_string($this->com,$word);
@@ -43,6 +46,7 @@ namespace App;
        public function lostId(){
            return $this->com->insert_id;
         }
+
 
     }
 

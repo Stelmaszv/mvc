@@ -1,11 +1,8 @@
 <?php
 namespace App;
 abstract  class controler{
-    public function __construct($templete=false){
-        if(!$templete){
-            $templete='templete/empty.htm';
-        }
-        $this->templete=new CTemplate($templete);
+    public function __construct($templete){
+         $this->templete=new CTemplate($templete);
     }
     abstract function addElments();
     function view(){

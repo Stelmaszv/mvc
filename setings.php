@@ -24,6 +24,7 @@ $gards[3]=array(
 $passwordOptions = [
     'cost' => 12,
 ];
+define('seeder',true);
 define('passwordOptions',$passwordOptions);
 define('homeLocation','index.php');
 define('loginLocation','index.php?view=login&&title=login');

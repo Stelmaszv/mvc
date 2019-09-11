@@ -38,6 +38,7 @@ class auth extends authInterface{
         return $pass;
     }
     function register($array){
+        $array['password']=$this->passwordCrypt($array['password']);
         if(!$this->sql->CountsSql('SELECT * FROM `users` WHERE `login` = "'.$this->sql->escepeString($array['login']).'"') >0) {
             $array['email'] ='email.com';
             $this->sql->MsQuery('INSERT INTO `users` (`id`, `login`, `password`, `level`, `email`) VALUES (NULL,"'.$this->sql->escepeString($array['login']).'", "'.$this->sql->escepeString($array['password']).'", "user", "'.$this->sql->escepeString($array['email']).'")');
