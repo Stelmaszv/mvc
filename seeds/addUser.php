@@ -1,24 +1,43 @@
 <?php
 namespace seeds;
 use App\debag;
-use App\sederBase;
+use model\users;
 use App\randomUserData;
-class addUser extends  sederBase{
-    protected  $elments=[];
-    public function __construct($elemnts){
-        $this->items= new randomUserData($elemnts);
-        $this->table='users';
-        parent::__construct();
+use App\sederBase;
+class addUser extends sederBase{
+    function seetings(){
+        $this->model=new users();
+        $this->count=1;
     }
-    function prepeare(){
-        foreach ($this->items->returnResults() as $row){
-            $this->elments[]=array(
-                '1'=> $row->login->username,
-                '2'=> $row->login->sha256,
-                '3'=>'user',
-                '4'=> $row->email
+    function execute(){
+        $count=0;
+        foreach ($this->usersGenerator() as $user) {
+            $insert = array(
+                array(
+                    'field' => 'login',
+                    'value' => $user->login->username
+                ),
+                array(
+                    'field' => 'password',
+                    'value' => $user->login->sha256
+                ),
+                array(
+                    'field' => 'email',
+                    'value' => $user->email
+                ),
+                array(
+                    'field' => 'level',
+                    'value' => 'user'
+                ),
+                array(
+                    'field' => 'avatar',
+                    'value' => $user->picture->medium
+                )
             );
+            if (users::insert($insert)) {
+                $count++;
+            }
+            print "Added ".$count." / ".$this->count." to tabel ".users::showTableName()." \n";
         }
     }
-
 }

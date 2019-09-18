@@ -1,10 +1,20 @@
 <?php
+namespace app;
+class randomString{
+    static function generate($lenght){
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randstring = '';
+        for ($i = 0; $i < $lenght; $i++) {
+            $randstring = $characters[rand(0, strlen($characters))];
+        }
+        return $randstring;
+    }
+}
 class rand{
     static public function randNumber($min,$max){
         return rand($min, $max);
     }
     static public function arrayround($array){
-        //$a=array("0"=>"red","1"=>"green","2"=>"blue","3"=>"yellow"); array example
         return $array[array_rand($array,1)];
     }
 }
@@ -37,4 +47,5 @@ class randomUserData{
         return  $this->webCrawler->url->results;
     }
 }
+
 ?>

@@ -6,7 +6,12 @@
       "action\\": "action",
       "model\\": "model",
       "Wsaction\\": "wsaction",
-      "seeds\\": "seeds"
+      "seeds\\": "seeds",
+      "gard\\": "gard",
+      "migration\\": "migration",
+      "helpels\\": "helpels",
+      "generator\\": "generator",
+      "IVO\\": "IVO"
     }
   },
   "require": {

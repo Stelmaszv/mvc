@@ -8,7 +8,23 @@ class form{
     function validate(){
         return $this->faindError();
     }
+    function upload(){
+        foreach ($this->data as $el){
+            if($el['type']=='file'){
+                $ext=strtolower(pathinfo(basename($el["value"]["name"]),PATHINFO_EXTENSION));
+                $url=$el['fileSettings']['url'].'/'.basename($el["value"]["name"]);
+                if(!is_dir($el['fileSettings']['url'])){
+                    mkdir($el['fileSettings']['url']);
+                }
+                move_uploaded_file($el["value"]["tmp_name"],$url);
+                if(isset($el['fileSettings']['newName'])){
+                    rename($url, $el['fileSettings']['url'].'/'.$el['fileSettings']['newName'].'.'.$ext );
+                }
+            }
+        }
+    }
     function showErors(){
+        $errors=array();
         foreach($this->data as $el){
             foreach($el['erros'] as $error){
                 $errors[]=array(
@@ -16,17 +32,28 @@ class form{
                 );
             }
         }
-
-        return $errors;
+        if(count($errors)){
+            return $errors;
+        }else{
+            return array();
+        }
     }
     function readyTosent(){
         $items=array();
         foreach ($this->data as $el){
             if(isset($el['db'])){
-                $item=array(
-                    'field'=>$el['db'],
-                    'value'=>$el['value']
-                );
+                if($el['type']!='file') {
+                    $item = array(
+                        'field' => $el['db'],
+                        'value' => $el['value']
+                    );
+                }else{
+                    $item = array(
+                        'field' => $el['db'],
+                        'value' => $el['value']['name']
+                    );
+                }
+
                 array_push($items,$item);
             }
         }
@@ -52,6 +79,7 @@ class form{
                 $types['text'] = new text();
                 $types['password'] = new password();
                 $types['email'] = new email();
+                $types['file'] = new file();
                 $this->data[$el] = $types[$value['type']]->execute($this->data[$el], $this->data);
             }else{
                 if($this->data[$el]['require']) {
@@ -59,6 +87,7 @@ class form{
                     $this->data[$el]['stan']=true;
                 }
             }
+
         }
     }
 }
@@ -186,5 +215,49 @@ class password extends validatebase{
             array_push($passwordErrors,'The password has too many special characters.');
         }
         return $passwordErrors;
+    }
+}
+class file extends validatebase{
+    public function execute($el, $array){
+       // debag::varDump($el);
+        $array=[];
+        if($this->isstFile($el)) {
+            array_push($array,'File in '.$el['name'].' have not been added');
+        }
+        if($this->ifSize($el)){
+            array_push($array,'File in '.$el['name'].' is to big');
+        }
+        if($this->ifExt($el)){
+            array_push($array,'File in '.$el['name'].' has a wrong extension');
+        }
+        //debag::varDump($el);
+        $el['erros']=$array;
+        return $el;
+    }
+    private function isstFile($el){
+        if(empty($el['value']['name'])){
+            return true;
+        }
+        return false;
+    }
+    private function ifSize($el){
+        if($el['value']['size']>$el['fileSettings']['maxsize']){
+            return true;
+        }
+        return false;
+    }
+    private function ifExt($el){
+        $ext=strtolower(pathinfo(basename($el["value"]["name"]),PATHINFO_EXTENSION));
+        $exts=$el["fileSettings"]['ext'];
+        $count=0;
+        foreach($exts as $elext){
+            if($elext==$ext){
+                $count=$count+1;
+            }
+        }
+        if($count>0){
+            return false;
+        }
+        return true;
     }
 }

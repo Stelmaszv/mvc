@@ -28,6 +28,13 @@
     <expand />
     <select />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -57,14 +64,20 @@
   </component>
   <component name="ProjectId" id="1Q8oLOpmCkEmkHGspZLt7fhXyo0" />
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary" value="PHPUnit" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\xampp\htdocs\mvc\IVO" />
+      <recent name="G:\xampp\htdocs\mvc\helpels" />
+      <recent name="Z:\xampp\htdocs\mvc" />
+      <recent name="Z:\xampp\htdocs\mvc\controler\showUsers" />
       <recent name="C:\xampp\htdocs\mvc\public" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -115,6 +128,14 @@
       <workItem from="1568039906262" duration="1458000" />
       <workItem from="1568194559478" duration="17178000" />
       <workItem from="1568280480168" duration="18224000" />
+      <workItem from="1568377575967" duration="9577000" />
+      <workItem from="1568390340793" duration="4557000" />
+      <workItem from="1568451765636" duration="14001000" />
+      <workItem from="1568543672130" duration="14618000" />
+      <workItem from="1568625490153" duration="20347000" />
+      <workItem from="1568716268539" duration="15422000" />
+      <workItem from="1568755581442" duration="5000" />
+      <workItem from="1568802464262" duration="17069000" />
     </task>
     <servers />
   </component>
@@ -147,13 +168,48 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/form.php</url>
-          <line>132</line>
+          <line>161</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/form.php</url>
           <line>2</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Controler.php</url>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/controler/editUser.php</url>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/migration.php</url>
+          <line>2</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/views.php</url>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php-line-method">
+          <url>file://$PROJECT_DIR$/app/model.php</url>
+          <line>113</line>
+          <properties>
+            <option name="className" value="\App\model" />
+            <option name="methodName" value="updata" />
+          </properties>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php-line-method">
+          <url>file://$PROJECT_DIR$/app/model.php</url>
+          <line>129</line>
+          <properties>
+            <option name="className" value="\App\model" />
+            <option name="methodName" value="unique" />
+          </properties>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

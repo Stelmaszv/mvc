@@ -1,9 +1,8 @@
 <?php
-include 'setings.php';
+require  'trait.php';
 require 'vendor/autoload.php';
+require  'setings.php';
+require  'Gards.php';
 require  'views.php';
-use App\actionPost;
-$action = new actionPost($_POST);
-
-
+require  'actions.php';
 ?>

@@ -1,32 +1,48 @@
 <?php
     namespace App;
+    use helpels\urls;
+    use mysql_xdevapi\Exception;
+
     class model extends modelCi {
-        public static $table = '';
-        public static $id=0;
-        public static $idName='id';
-        public static $unique='login';
+        use \faindTable;
+        protected static $table = '';
+        protected static $id=0;
+        protected static $idName='id';
+        protected static $unique='login';
         function __construct(){
             $this->Setings();
+            if(!$this->faindTable(self::$table)){
+                throw new \Exception(sprintf(' Undefined table in model '.$this->getTemplete().' or table do doesnt exist'));
+            }
             $this->sqlProtection();
             //$this->table=$this->sql->escepeString($this->table);
+
+        }
+        private function getTemplete(){
+            return (new \ReflectionClass($this))->getShortName();
         }
         private function Setings(){
             $this->SetMethods();
         }
+        static  function showTableName(){
+            return self::$table;
+        }
         private function sqlProtection(){
             $sql= new sql();
             self::$table=$sql->escepeString(self::$table);
-            self::$idName=$sql->escepeString(self::$idName);
-            self::$unique=$sql->escepeString(self::$unique);
-            self::$id=intval(self::$id);
+          // self::$idName=$sql->escepeString(self::$idName);
+          //  self::$unique=$sql->escepeString(self::$unique);
+         //   self::$id=intval(self::$id);
         }
         static function insert($array){
-            //INSERT INTO `users` (`id`, `login`, `password`, `level`, `email`, `number`) VALUES (NULL, 'gwrg', 'gerg', 'user', 'qwd', '');
             $sql= new sql();
             $query='INSERT INTO '.self::$table;
             $query.=self::returnFields($array);
             $query.=self::returnValues($array);
-            return $sql->MsQuery($query);
+            if($sql->MsQuery($query)){
+                return $sql->lostId();
+            }
+            return 0;
         }
         private function returnValues($array){
             $values=' VALUES(';
@@ -47,13 +63,12 @@
             $loop = $sql->SqlloopAll('SHOW COLUMNS FROM ' . self::$table);
             $fields=" (";
             $count=1;
-            $items=count($loop)-count($array);
             foreach ($loop as $item) {
                 if ($item['Field'] !== self::$idName) {
                     foreach ($array as $el) {
                         if($item['Field']==$el['field']){
                             $fields.= ' '.$item['Field'].' ';
-                            if($count<=$items-1){
+                            if($count != count($array)){
                                 $fields.=', ';
                             }
                             $count++;
@@ -61,16 +76,26 @@
 
                     }
                 }
-
             }
             $fields.=")";
             return $fields;
         }
+        /*
+        private function faindTable($table){
+            $sql= new sql();
+            $tableList=$sql->SqlloopAll('SHOW tables');
+            foreach ($tableList as $el){
+                if($el['Tables_in_test']==$table){
+                    return true;
+                }
+            }
+            return false;
+        }
+        */
         public function SetMethods(){}
         static function faind($id=false){
             self::$id=intval($id);
-             $sql= new sql();
-            return $sql->SqlloopAll('SELECT * FROM '.self::$table .' where '.self::$idName.'  = '.intval($id).'');
+            return self::where(intval($id),self::$idName,'=');
         }
         static public function showAll($limit=false){
             $sql= new sql();
@@ -84,20 +109,29 @@
         static public function delete($id=false){
             self::$id=intval($id);
             $sql= new sql();
-            $sql->MsQuery('DELETE FROM `users` WHERE '.self::$idName.'  = '.self::$id);
+            $sql->MsQuery('DELETE FROM '.self::$table .' WHERE '.self::$idName.'  = '.self::$id);
         }
         static public function updata($id=false,$values){
+
             self::$id=intval($id);
             $sql= new sql();
             $sqlQuery='UPDATE '.self::$table.' SET';
             $sqlQuery.=self::SetUpdate($values);
-            $sqlQuery.='WHERE '.self::$idName.' ='.self::$id;
-            $sql->MsQuery($sqlQuery);
+            $sqlQuery.=' WHERE '.self::$idName.' ='.self::$id;
+            echo $sqlQuery;
+            return $sql->MsQuery($sqlQuery);
         }
-        function unique($unique,$value){
+        static function where($where,$field,$operator){
             $sql= new sql();
-            self::$unique=$unique;
-            $query=$sql->SqlloopAll('SELECT * FROM  '.self::$table.' where '.self::$unique.'= "'.$sql->escepeString($value).'"');
+            $query = 'SELECT * FROM  ' . self::$table . ' where ' .$sql->escepeString($field). ' ' . $sql->escepeString($operator) . ' "' . $sql->escepeString($where) . '"';
+            $equery=$sql->SqlloopAll($query);
+            return  $equery;
+        }
+        function unique($unique=false,$value){
+            if($unique) {
+                self::$unique = $unique;
+            }
+            $query=self::where($value,self::$unique,'=');
             if(count($query)>0){
                 return true;
             }
@@ -109,18 +143,25 @@
             $updata = '';
             $loop = $sql->SqlloopAll('SHOW COLUMNS FROM ' . self::$table);
             $index = 0;
-            foreach ($loop as $item) {
-                if ($item['Field'] !== self::$idName) {
-                    foreach ($values as $el => $value) {
-                        if ($el == $item['Field']) {
-                            if (gettype($values[$el]) != 'integer') {
-                                $updata .= ' ' . $item['Field'] . '="' . $sql->escepeString($values[$el]) . '" ';
-                            } else {
-                                $updata .= ' ' . $item['Field'] . '=' . intval($values[$el]) . ' ';
-                            }
-                            if ($index != count($values)) {
-                                $updata .= ', ';
-                            }
+            $usedFields=array();
+            foreach ($loop as $field){
+                foreach ($values as $data) {
+                    if($field['Field']==$data['field']){
+                        array_push($usedFields,$field['Field']);
+                    }
+
+                }
+            }
+            foreach ($usedFields as $el){
+                foreach ($values as $data) {
+                    if($el==$data['field']){
+                        if (gettype($data['value']) != 'integer') {
+                            $updata .= ' ' . $el . '="' . $sql->escepeString($data['value']) . '" ';
+                        }else{
+                            $updata .= ' ' . $el . '=' . intval($data['value']) . ' ';
+                        }
+                        if ($index != count($values)-1) {
+                            $updata .= ', ';
                         }
                     }
                 }

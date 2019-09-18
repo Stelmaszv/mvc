@@ -6,8 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'trait\\' => array($baseDir . '/trait'),
     'seeds\\' => array($baseDir . '/seeds'),
     'model\\' => array($baseDir . '/model'),
+    'migration\\' => array($baseDir . '/migration'),
+    'helpels\\' => array($baseDir . '/helpels'),
+    'generator\\' => array($baseDir . '/generator'),
+    'gard\\' => array($baseDir . '/gard'),
     'controler\\' => array($baseDir . '/controler'),
     'action\\' => array($baseDir . '/action'),
     'Wsaction\\' => array($baseDir . '/wsaction'),
@@ -27,6 +32,7 @@ return array(
     'Ratchet\\RFC6455\\' => array($vendorDir . '/ratchet/rfc6455/src'),
     'Ratchet\\' => array($vendorDir . '/cboden/ratchet/src/Ratchet'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
+    'IVO\\' => array($baseDir . '/IVO'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'App\\' => array($baseDir . '/app'),
 );

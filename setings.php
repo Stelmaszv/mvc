@@ -1,39 +1,43 @@
 <?php
-$styles[0]=array(
-    'name' => 'public/css/mian.css'
+use App\includeFiles;
+$styles=array(
 );
 $scripts[0]=array(
-    'name' => 'assets/js/websocket'
-);
-$gards[0]=array(
-    'route'=>'login',
-    'level'=>'nosession'
-);
-$gards[1]=array(
-    'route'=>'register',
-    'level'=>'nosession'
-);
-$gards[2]=array(
-    'route'=>'showSection',
-    'level'=>'session'
-);
-$gards[3]=array(
-    'route'=>'showUsers',
-    'level'=>'admin'
+    'name' => 'https://code.jquery.com/jquery-3.4.1.min.js'
 );
 $passwordOptions = [
     'cost' => 12,
 ];
+$auth=[
+    'table'      =>'users',
+    'loginField' =>'login',
+    'password'   => 'password'
+];
+$files=new includeFiles();
+
+
+
+//array_push($scripts,$files->addElemnts('assets/js/'));
+
+
+define('gardItems',array());
+define('auth',$auth);
 define('seeder',true);
 define('passwordOptions',$passwordOptions);
 define('homeLocation','index.php');
 define('loginLocation','index.php?view=login&&title=login');
-define('styles',$styles);
-define('scripts',$scripts);
-define('gards',$gards);
+define('stylesUrls',$styles);
+define('stylesAssets',$files->addElemnts('assets/css/'));
+define('styles',$files->addElemnts('public/css/'));
+define('scriptsUrls',$scripts);
+define('scriptsAssets',$files->addElemnts('assets/js/'));
+define('scripts',$files->addElemnts('public/js/'));
 define("servername", "localhost");
 define("username", "root");
 define("password", "");
 define("dbname", "test");
+
+
+
 ?>
 

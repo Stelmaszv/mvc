@@ -1,33 +1,39 @@
 <?php
-use App\views;
+use IVO\views;
 use App\mianControler;
 use controler\home;
 use controler\showUsers;
-use controler\start;
 use controler\login;
 use controler\register;
 use controler\showSection;
-use controler\logout;
+use controler\showUser;
+use controler\editUser;
+use controler\socetio;
 views::register('home', function () {
-    return new home('./templete/home.htm');
+    return home::create();
 });
-views::register('start', function () {
-    return new start('./templete/start.htm');
+views::register('socetio', function () {
+    return socetio::create();
+});
+views::register('showUser', function () {
+    return showUser::create();
 });
 views::register('register', function () {
-    return new register('./templete/register.htm');
+    return register::create();
 });
 views::register('login', function () {
-    return new login('./templete/login.htm');
+    return login::create();
 });
 views::register('showSection', function () {
-   return new showSection('./templete/showSection.htm');
-});
-views::register('logout', function () {
-    return new logout('./templete/showUsers.htm');
+    return showSection::create();
 });
 views::register('showUsers', function () {
-    return new showUsers('./templete/showUsers.htm');
+    return showUsers::create();
 });
-$view = new mianControler(views::resolve());
+views::register('editUser', function () {
+    return editUser::create();
+});
+$view = mianControler::create(views::resolveView());
 echo $view->view();
+
+

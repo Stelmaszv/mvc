@@ -8,7 +8,7 @@ use model\users;
 
 class showUsers extends controler{
     private function pagination(){
-        $this->pagination=new pagination(35,$_GET);
+        $this->pagination=new pagination(30,$_GET);
         $this->pagination->setSql('SELECT * FROM `users`');
     }
     public function addElments(){
@@ -26,10 +26,10 @@ class showUsers extends controler{
     public function onPost(){
         $user=new users();
        $from=new form(array(
-           'login'=>array('name'=>'login','require'=>true,'max'=>50,'min'=>5,'type'=>'text','value'=>$_POST['login'],'stan'=>false,'login'=>true,'db'=>'login','unique'=>array(new users(),'login')),
-           'password'=>array('name'=>'password','require'=>false,'max'=>50,'min'=>6,'type'=>'password','value'=>$_POST['password'],'db'=>'password','stan'=>false),
-           'passwordconfirm'=>array('name'=>'passwordconfirm','require'=>false,'max'=>50,'min'=>6,'type'=>'password','value'=>$_POST['passwordconfirm'],'stan'=>false,'passwordConfirm'=>true),
-           'email'=>array('name'=>'email','require'=>true,'max'=>50,'min'=>12,'type'=>'email','value'=>$_POST['email'],'db'=>'email','stan'=>false)
+           'login'=>array('name'=>'login','require'=>true,'max'=>50,'min'=>5,'type'=>'text','value'=>'stelmaszv','stan'=>false,'login'=>true,'db'=>'login','unique'=>array(new users(),'login')),
+           'password'=>array('name'=>'password','require'=>false,'max'=>50,'min'=>6,'type'=>'password','value'=>'Samlogan007!!','db'=>'password','stan'=>false),
+           'passwordconfirm'=>array('name'=>'passwordconfirm','require'=>false,'max'=>50,'min'=>6,'type'=>'password','value'=>'Samlogan007!!','stan'=>false,'passwordConfirm'=>true),
+           'email'=>array('name'=>'email','require'=>true,'max'=>50,'min'=>12,'type'=>'email','value'=>'stelmaszv@gmail.com','db'=>'email','stan'=>false)
        ));
        if($from->validate()){
             if($user::insert($from->readyTosent())){

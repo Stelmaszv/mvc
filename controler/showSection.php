@@ -1,9 +1,10 @@
 <?php
 namespace controler;
 use app\controler;
-use app\auth;
+use App\debag;
+use App\auth;
 class  showSection extends controler{
     public function addElments(){
-           $this->templete->CAdd('[#Session#]',auth::returnAuth()['login']);
+        $this->templete->CAdd('[#Session#]',auth::returnAuth()['login']);
     }
 }

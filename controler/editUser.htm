@@ -1,0 +1,17 @@
+
+<form method="post" enctype="multipart/form-data">
+    <div><input name="login" value="[#login#]"></div>
+    <div><input name="email" value="[#email#]"></div>
+    <div><input name="avatar"  type="file"></div>
+    <div>[#level#]</div>
+    <input type="submit">
+</form>
+<if name="notification">
+    edit success
+</if name="notification">
+
+<ul>
+    <loop name="errors">
+        <li>[#errorname#]</li>
+    </loop name="errors">
+</ul>

@@ -1,22 +1,37 @@
 <?php
 namespace App;
-use App\authInterface;
 use App\sql;
+use helpels\urls;
+use model\authModel;
 session_start();
-class auth extends authInterface{
+interface authInterface{
+    function loginStart();
+    static function ifAuth();
+    static function returnAuth();
+    static function logout();
+    function register();
+}
+class auth implements authInterface{
     private $sql;
-    public function __construct(){
+    public function __construct($data){
         $this->sql= new sql();
+        $this->data= $data;
     }
-    function faindUsertoLogin($data){
-        $array=$this->sql->SqlloopAll('SELECT * FROM `users` WHERE `login` = "'.$this->sql->escepeString($data['login']).'"');
-        if(password_verify($data['password'],$array[0]['password'])){
-            $this->setSession($array);
+    function loginStart(){
+        $model=new authModel();
+        $array=$model::where($this->data['login'],auth['loginField'],'=');
+        if(password_verify($this->data['password'],$array[0]['password'])){
+           $this->setSession($array);
+        }else{
+            $url=new urls();
+            $url->addToIssetUrl('&&error=true');
+            $url->redirect();
         }
     }
     private  function setSession($data){
         $_SESSION['auth']=$data;
-        header('Location:'.homeLocation);
+        $url=new urls();
+        $url->redirect();
     }
     static function ifAuth(){
         if(isset($_SESSION['auth'])){
@@ -29,21 +44,28 @@ class auth extends authInterface{
     static function returnAuth(){
         return $_SESSION['auth'][0];
     }
-    function logout(){
+    static function logout(){
         session_destroy();
-        header('Location:'.homeLocation);
+        $url=new urls();
+        $url->redirect();
     }
     private function passwordCrypt($password){
         $pass =password_hash($password,PASSWORD_BCRYPT,passwordOptions);
         return $pass;
     }
-    function register($array){
-        $array['password']=$this->passwordCrypt($array['password']);
-        if(!$this->sql->CountsSql('SELECT * FROM `users` WHERE `login` = "'.$this->sql->escepeString($array['login']).'"') >0) {
-            $array['email'] ='email.com';
-            $this->sql->MsQuery('INSERT INTO `users` (`id`, `login`, `password`, `level`, `email`) VALUES (NULL,"'.$this->sql->escepeString($array['login']).'", "'.$this->sql->escepeString($array['password']).'", "user", "'.$this->sql->escepeString($array['email']).'")');
-            $array=$this->sql->SqlloopAll('SELECT * FROM `users` WHERE `id` = '.intval($this->sql->lostId()).'');
-            $this->setSession($array);
+    function register(){
+        $pass=$this->faindField(auth['password']);
+        $this->data[$pass]['value']=$this->passwordCrypt($this->data[$pass]['value']);
+        array_push($this->data,array("field"=>'level',"value"=>'user'));
+        $id=authModel::insert($this->data);
+        $this->setSession(authModel::faind($id));
+    }
+    private function faindField($field){
+        foreach ($this->data as $el=>$value){
+            if($this->data[$el]['field']==$field){
+                return $el;
+            }
+
         }
     }
     static function ifLevel($required){

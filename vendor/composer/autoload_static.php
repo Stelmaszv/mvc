@@ -17,6 +17,10 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
     );
 
     public static $prefixLengthsPsr4 = array (
+        't' => 
+        array (
+            'trait\\' => 6,
+        ),
         's' => 
         array (
             'seeds\\' => 6,
@@ -24,6 +28,16 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         'm' => 
         array (
             'model\\' => 6,
+            'migration\\' => 10,
+        ),
+        'h' => 
+        array (
+            'helpels\\' => 8,
+        ),
+        'g' => 
+        array (
+            'generator\\' => 10,
+            'gard\\' => 5,
         ),
         'c' => 
         array (
@@ -62,6 +76,10 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         array (
             'Psr\\Http\\Message\\' => 17,
         ),
+        'I' => 
+        array (
+            'IVO\\' => 4,
+        ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
@@ -73,6 +91,10 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
     );
 
     public static $prefixDirsPsr4 = array (
+        'trait\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/trait',
+        ),
         'seeds\\' => 
         array (
             0 => __DIR__ . '/../..' . '/seeds',
@@ -80,6 +102,22 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         'model\\' => 
         array (
             0 => __DIR__ . '/../..' . '/model',
+        ),
+        'migration\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/migration',
+        ),
+        'helpels\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/helpels',
+        ),
+        'generator\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/generator',
+        ),
+        'gard\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/gard',
         ),
         'controler\\' => 
         array (
@@ -156,6 +194,10 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'IVO\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/IVO',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
