@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'trait\\' => array($baseDir . '/trait'),
     'seeds\\' => array($baseDir . '/seeds'),
     'model\\' => array($baseDir . '/model'),
     'migration\\' => array($baseDir . '/migration'),
@@ -35,4 +34,5 @@ return array(
     'IVO\\' => array($baseDir . '/IVO'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'App\\' => array($baseDir . '/app'),
+    'Api\\' => array($baseDir . '/Api'),
 );

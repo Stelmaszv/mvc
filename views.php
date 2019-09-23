@@ -9,6 +9,7 @@ use controler\showSection;
 use controler\showUser;
 use controler\editUser;
 use controler\socetio;
+use controler\ajaxUsers;
 views::register('home', function () {
     return home::create();
 });
@@ -33,7 +34,12 @@ views::register('showUsers', function () {
 views::register('editUser', function () {
     return editUser::create();
 });
-$view = mianControler::create(views::resolveView());
-echo $view->view();
+views::register('ajaxUsers', function () {
+    return ajaxUsers::create();
+});
+if(!isset($_GET['api'])) {
+    $view = mianControler::create(views::resolveView());
+    echo $view->view();
+}
 
 

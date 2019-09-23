@@ -3,14 +3,14 @@ namespace App;
 use controler\home;
 abstract  class controler{
     use \singletonCreate;
+    protected $empty=false;
     protected  function __construct($templete=false){
         if(!$templete) {
             $className = 'controler/' . $this->getTemplete() . '.htm';
         }else{
             $className=$templete;
         }
-
-        $this->templete=new CTemplate($className);
+        $this->templete = new CTemplate($className);
         $this->onConstruct();
         if(isset($_POST) && count($_POST)>0 ) {
             $this->onPost();
@@ -34,6 +34,9 @@ abstract  class controler{
     abstract function addElments();
     function view(){
         $this->addElments();
-        return $this->templete->CGet();
+        if(!$this->empty) {
+            return $this->templete->CGet();
+        }
+
     }
 }

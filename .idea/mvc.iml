@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/model" isTestSource="false" packagePrefix="model\" />
       <sourceFolder url="file://$MODULE_DIR$/controler" isTestSource="false" packagePrefix="controler\" />
       <sourceFolder url="file://$MODULE_DIR$/gard" isTestSource="false" packagePrefix="gard\" />
+      <sourceFolder url="file://$MODULE_DIR$/Api" isTestSource="false" packagePrefix="Api\" />
       <sourceFolder url="file://$MODULE_DIR$/generator" isTestSource="false" packagePrefix="generator\" />
       <sourceFolder url="file://$MODULE_DIR$/seeds" isTestSource="false" packagePrefix="seeds\" />
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" packagePrefix="App\" />

@@ -5,8 +5,8 @@ use generator\randomUserData;
 abstract class sederBase{
     public $Model;
     public function __construct($count){
-        $this->seetings();
         $this->count=$count;
+        $this->seetings();
     }
     function usersGenerator(){
         $users=new randomUserData($this->count);

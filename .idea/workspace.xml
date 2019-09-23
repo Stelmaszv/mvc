@@ -31,6 +31,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JavaScript File" />
         <option value="HTML File" />
       </list>
     </option>
@@ -73,15 +74,15 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\mvc\css" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\xampp\htdocs\mvc\assets\js" />
       <recent name="G:\xampp\htdocs\mvc\IVO" />
       <recent name="G:\xampp\htdocs\mvc\helpels" />
       <recent name="Z:\xampp\htdocs\mvc" />
       <recent name="Z:\xampp\htdocs\mvc\controler\showUsers" />
-      <recent name="C:\xampp\htdocs\mvc\public" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\mvc\css" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -136,6 +137,7 @@
       <workItem from="1568716268539" duration="15422000" />
       <workItem from="1568755581442" duration="5000" />
       <workItem from="1568802464262" duration="17069000" />
+      <workItem from="1568972910085" duration="8622000" />
     </task>
     <servers />
   </component>
@@ -185,17 +187,12 @@
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/migration.php</url>
-          <line>2</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/views.php</url>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/app/model.php</url>
-          <line>113</line>
+          <line>120</line>
           <properties>
             <option name="className" value="\App\model" />
             <option name="methodName" value="updata" />
@@ -204,7 +201,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/app/model.php</url>
-          <line>129</line>
+          <line>136</line>
           <properties>
             <option name="className" value="\App\model" />
             <option name="methodName" value="unique" />

@@ -17,6 +17,7 @@ class webSocket implements MessageComponentInterface{
         $onOpen->execute();
     }
     public function onError(ConnectionInterface $conn, \Exception $e){
+        echo $e->getMessage();
         $conn->close();
     }
     public function onClose(ConnectionInterface $conn){

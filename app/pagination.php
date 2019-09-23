@@ -13,11 +13,18 @@ class pagination{
      public $corentPage;
     public function __construct($limitOnPage,$Data){
             $this->Data = $Data;
-            $this->defult = '?view=' . $this->Data['view'] . '&&title=' . $this->Data['title'];
+            //$this->defult = '?view=' . $this->Data['view'] . '&&title=' . $this->Data['title'];
+            $this->defuls=$_SERVER['QUERY_STRING'];
             $this->CorentPage = isset($this->Data['page']) ? intval($this->Data['page']):1;
             $this->sql = new sql();
             $this->limitOnPage = $limitOnPage;
             $this->skip = (($this->CorentPage - 1) * $this->limitOnPage);
+    }
+    public function returnpagesInfo(){
+        return array(
+            'lastPage'=> $this->pagesCount,
+            'CorrentPage'=>$this->CorentPage
+        );
     }
     private function headerBlock(){
         if(!isset($this->CorentPage)){

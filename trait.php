@@ -12,8 +12,8 @@ trait singletonCreate {
         return $instances[$calledClass];
     }
 }
-trait faindTable {
-    private function faindTable($table){
+trait faindTableT {
+    function faindTable($table){
         $sql= new sql();
         $tableList=$sql->SqlloopAll('SHOW tables');
         foreach ($tableList as $el){

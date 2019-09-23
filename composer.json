@@ -11,7 +11,8 @@
       "migration\\": "migration",
       "helpels\\": "helpels",
       "generator\\": "generator",
-      "IVO\\": "IVO"
+      "IVO\\": "IVO",
+      "Api\\": "Api"
     }
   },
   "require": {

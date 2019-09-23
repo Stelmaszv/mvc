@@ -2,9 +2,7 @@
     namespace App;
     use helpels\urls;
     use mysql_xdevapi\Exception;
-
     class model extends modelCi {
-        use \faindTable;
         protected static $table = '';
         protected static $id=0;
         protected static $idName='id';
@@ -16,7 +14,16 @@
             }
             $this->sqlProtection();
             //$this->table=$this->sql->escepeString($this->table);
-
+        }
+        private function faindTable($table){
+            $sql= new sql();
+            $tableList=$sql->SqlloopAll('SHOW tables');
+            foreach ($tableList as $el){
+                if($el['Tables_in_test']==$table){
+                    return true;
+                }
+            }
+            return false;
         }
         private function getTemplete(){
             return (new \ReflectionClass($this))->getShortName();
