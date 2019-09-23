@@ -1,8 +1,9 @@
 <?php
-use IVO\gardsIVO;
-use App\gardControler;
 use gard\ifAdmin;
 use gard\ifLogin;
+use IVO\gardsIVO;
+use App\gardControler;
+
 $gards=new gardsIVO();
 $gards::newGard('ifAdmin','showUsers', function () {
     return ifAdmin::create();

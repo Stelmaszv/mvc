@@ -6,15 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'seeds\\' => array($baseDir . '/seeds'),
-    'model\\' => array($baseDir . '/model'),
-    'migration\\' => array($baseDir . '/migration'),
-    'helpels\\' => array($baseDir . '/helpels'),
-    'generator\\' => array($baseDir . '/generator'),
-    'gard\\' => array($baseDir . '/gard'),
-    'controler\\' => array($baseDir . '/controler'),
-    'action\\' => array($baseDir . '/action'),
-    'Wsaction\\' => array($baseDir . '/wsaction'),
     'Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Polyfill\\Intl\\Idn\\' => array($vendorDir . '/symfony/polyfill-intl-idn'),
@@ -31,8 +22,10 @@ return array(
     'Ratchet\\RFC6455\\' => array($vendorDir . '/ratchet/rfc6455/src'),
     'Ratchet\\' => array($vendorDir . '/cboden/ratchet/src/Ratchet'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
-    'IVO\\' => array($baseDir . '/IVO'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
-    'App\\' => array($baseDir . '/app'),
-    'Api\\' => array($baseDir . '/Api'),
+    'Corehelpel\\' => array($baseDir . '/core/helpel/class'),
+    'CoreMain\\' => array($baseDir . '/core/main'),
+    'CoreIoC\\' => array($baseDir . '/core/IoC'),
+    'CoreErorr\\' => array($baseDir . '/core/erorrs'),
+    'AppControler\\' => array($baseDir . '/app/Controlers'),
 );

@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>
+            [#Title#]
+        </title>
+        <loop name="stylesurls">
+            <link rel="stylesheet" type="text/css" href="[#name#]">
+        </loop name="stylesurls">
+        <loop name="stylesassets">
+            <link rel="stylesheet" type="text/css" href="[#name#]">
+        </loop name="stylesassets">
+        <loop name="styles">
+            <link rel="stylesheet" type="text/css" href="[#name#]">
+        </loop name="styles">
+    </head>
+    <body>
+        [#heder#]
+        [#view#]
+        [#footer#]
+
+        <ul class="usersList">
+
+        </ul>
+        <div class="load">loading ...</div>
+    </body>
+    <loop name="scriptsurl">
+        <script src="[#name#]"></script>
+    </loop name="scriptsurl">
+    <loop name="scriptsassets">
+        <script src="[#name#]"></script>
+    </loop name="scriptsassets">
+    <loop name="scripts">
+        <script src="[#name#]"></script>
+    </loop name="scripts">
+</html>

@@ -1,6 +1,8 @@
 <?php
-namespace App;
-class IVO{
+namespace CoreMain;
+use CoreErorr\erorrDetect;
+class IoC{
+    public static $setings=array();
     public static $registry = [];
     public static function register($name,$resolve,$gard=false){
         static::$registry[$name] = $resolve;
@@ -10,7 +12,9 @@ class IVO{
     }
     public static function resolve($name=false){
         if (!static::registered($name)) {
-            throw new \Exception(sprintf('%s is not registerd', $name));
+            erorrDetect::thrownew(static::$setings['errorValue'],static::$setings['errorName']);
+            die();
+            //throw new \Exception(sprintf('%s is not registerd', $name));
         }
         $name = static::$registry[$name];
         return $name(new self);

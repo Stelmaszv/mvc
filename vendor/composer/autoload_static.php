@@ -14,39 +14,11 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'a604e719e691584940a0559c547972df' => __DIR__ . '/../..' . '/core/helpel/helpel.php',
+        'c7051a90f592eef3bbd3c0a173e67f3a' => __DIR__ . '/../..' . '/core/trait/trait.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        's' => 
-        array (
-            'seeds\\' => 6,
-        ),
-        'm' => 
-        array (
-            'model\\' => 6,
-            'migration\\' => 10,
-        ),
-        'h' => 
-        array (
-            'helpels\\' => 8,
-        ),
-        'g' => 
-        array (
-            'generator\\' => 10,
-            'gard\\' => 5,
-        ),
-        'c' => 
-        array (
-            'controler\\' => 10,
-        ),
-        'a' => 
-        array (
-            'action\\' => 7,
-        ),
-        'W' => 
-        array (
-            'Wsaction\\' => 9,
-        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php72\\' => 23,
@@ -72,58 +44,24 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         array (
             'Psr\\Http\\Message\\' => 17,
         ),
-        'I' => 
-        array (
-            'IVO\\' => 4,
-        ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
         ),
+        'C' => 
+        array (
+            'Corehelpel\\' => 11,
+            'CoreMain\\' => 9,
+            'CoreIoC\\' => 8,
+            'CoreErorr\\' => 10,
+        ),
         'A' => 
         array (
-            'App\\' => 4,
-            'Api\\' => 4,
+            'AppControler\\' => 13,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'seeds\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/seeds',
-        ),
-        'model\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/model',
-        ),
-        'migration\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/migration',
-        ),
-        'helpels\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/helpels',
-        ),
-        'generator\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/generator',
-        ),
-        'gard\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/gard',
-        ),
-        'controler\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/controler',
-        ),
-        'action\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/action',
-        ),
-        'Wsaction\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/wsaction',
-        ),
         'Symfony\\Polyfill\\Php72\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
@@ -188,21 +126,29 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'IVO\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/IVO',
-        ),
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'App\\' => 
+        'Corehelpel\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app',
+            0 => __DIR__ . '/../..' . '/core/helpel/class',
         ),
-        'Api\\' => 
+        'CoreMain\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/Api',
+            0 => __DIR__ . '/../..' . '/core/main',
+        ),
+        'CoreIoC\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/IoC',
+        ),
+        'CoreErorr\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/erorrs',
+        ),
+        'AppControler\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Controlers',
         ),
     );
 

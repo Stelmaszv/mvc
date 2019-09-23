@@ -1,19 +1,17 @@
 {
   "autoload": {
     "psr-4": {
-      "App\\": "app",
-      "controler\\": "controler",
-      "action\\": "action",
-      "model\\": "model",
-      "Wsaction\\": "wsaction",
-      "seeds\\": "seeds",
-      "gard\\": "gard",
-      "migration\\": "migration",
-      "helpels\\": "helpels",
-      "generator\\": "generator",
-      "IVO\\": "IVO",
-      "Api\\": "Api"
-    }
+      "CoreMain\\": "core/main",
+      "CoreIoC\\": "core/IoC",
+      "CoreErorr\\": "core/erorrs",
+      "Corehelpel\\":"core/helpel/class",
+      "AppControler\\": "app/Controlers"
+  
+    },
+    "files": [
+      "core/helpel/helpel.php",
+      "core/trait/trait.php"
+    ]
   },
   "require": {
     "cboden/ratchet": "^0.4"
