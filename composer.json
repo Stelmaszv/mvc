@@ -5,6 +5,7 @@
       "CoreIoC\\": "core/IoC",
       "CoreErorr\\": "core/erorrs",
       "Corehelpel\\":"core/helpel/class",
+      "Corelanguage\\":"core/lang",
       "AppControler\\": "app/Controlers"
   
     },

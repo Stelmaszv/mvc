@@ -2,8 +2,8 @@
 namespace AppControler;
 use CoreMain\controller;
 class error extends controller{
-    function main(){
-        $this->templete->CAdd('[#ERORR#]',$_SESSION[url[2]]);
+    function main(){ 
+        $this->templete->CAdd('[#ERROR#]',$_SESSION[url[2]]);
     }
 }
 

@@ -50,6 +50,7 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         ),
         'C' => 
         array (
+            'Corelanguage\\' => 13,
             'Corehelpel\\' => 11,
             'CoreMain\\' => 9,
             'CoreIoC\\' => 8,
@@ -129,6 +130,10 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+        ),
+        'Corelanguage\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/lang',
         ),
         'Corehelpel\\' => 
         array (

@@ -15,4 +15,7 @@ class urls{
     static function refresh(){
         header('Location: '.$_SERVER['HTTP_REFERER']);
     }
+    static function home(){
+        header('Location: http://localhost/mvc/home');
+    }
 }

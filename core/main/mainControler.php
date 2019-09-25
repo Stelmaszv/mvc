@@ -2,10 +2,12 @@
 namespace CoreMain;
 use CoreErorr\erorrDetect;
 use CoreMain\controller;
+use Corelanguage\language;
 class mainControler extends controller{
     private $controler;
     function __construct($controler){
         $this->controler=$controler;
+        $this->Settings['templete']=config['templete'];
         $this->templete = new CTemplate('public/index.htm');
         $this->init();
     }
@@ -21,7 +23,9 @@ class mainControler extends controller{
               if(method_exists($this->controler,$function)){
                 $this->controler->$function();
               }else{
-                erorrDetect::thrownew('controlerErorr','Method  '.$function.' in controler '.$name.' does not exist');
+                $ControlerMethodError=language::trnaslate('ControlerMethodError',false,'{function}',$function);
+                $ControlerMethodError=language::trnaslate($ControlerMethodError,false,'{controler}','home',false);
+                erorrDetect::thrownew('ControlerMethodError',$ControlerMethodError);
               }
             }
         }else{
@@ -29,8 +33,9 @@ class mainControler extends controller{
         }
     }
     function show(){
-        if(!$this->controler->Settings['notemplete']){
-             return $this->render();
+        $this->main();
+        if($this->Settings['templete']){
+            return $this->render();
         }
     }
 }
