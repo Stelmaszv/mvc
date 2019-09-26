@@ -1,7 +1,5 @@
 <?php
-
-use App\sql;
-
+use CoreMain\DB;
 trait singletonCreate {
     static function create($data=false) {
         static $instances = array();
@@ -14,7 +12,7 @@ trait singletonCreate {
 }
 trait faindTableT {
     function faindTable($table){
-        $sql= new sql();
+        $sql= new DB();
         $tableList=$sql->SqlloopAll('SHOW tables');
         foreach ($tableList as $el){
             if($el['Tables_in_test']==$table){
@@ -22,5 +20,10 @@ trait faindTableT {
             }
         }
         return false;
+    }
+}
+trait className{
+    function classname(){
+        return (new \ReflectionClass($this))->getShortName();
     }
 }

@@ -28,5 +28,7 @@ return array(
     'CoreMain\\' => array($baseDir . '/core/main'),
     'CoreIoC\\' => array($baseDir . '/core/IoC'),
     'CoreErorr\\' => array($baseDir . '/core/erorrs'),
+    'AppModel\\' => array($baseDir . '/app/Models'),
+    'AppHelpel\\' => array($baseDir . '/app/Helpel'),
     'AppControler\\' => array($baseDir . '/app/Controlers'),
 );

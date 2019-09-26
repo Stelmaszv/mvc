@@ -5,9 +5,10 @@ use CoreMain\controller;
 use Corelanguage\language;
 class mainControler extends controller{
     private $controler;
+    use \className;
     function __construct($controler){
         $this->controler=$controler;
-        $this->Settings['templete']=config['templete'];
+        $this->Settings=config['defultController'];
         $this->templete = new CTemplate('public/index.htm');
         $this->init();
     }
@@ -24,7 +25,7 @@ class mainControler extends controller{
                 $this->controler->$function();
               }else{
                 $ControlerMethodError=language::trnaslate('ControlerMethodError',false,'{function}',$function);
-                $ControlerMethodError=language::trnaslate($ControlerMethodError,false,'{controler}','home',false);
+                $ControlerMethodError=language::trnaslate($ControlerMethodError,false,'{controler}',$this->classname(),false);
                 erorrDetect::thrownew('ControlerMethodError',$ControlerMethodError);
               }
             }

@@ -6,7 +6,9 @@
       "CoreErorr\\": "core/erorrs",
       "Corehelpel\\":"core/helpel/class",
       "Corelanguage\\":"core/lang",
-      "AppControler\\": "app/Controlers"
+      "AppControler\\": "app/Controlers",
+      "AppModel\\":"app/Models",
+      "AppHelpel\\":"app/Helpel"
   
     },
     "files": [

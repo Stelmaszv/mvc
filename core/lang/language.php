@@ -34,5 +34,8 @@ exception */
         }
         return $word;
     }
+    static function getWord($word){
+        return language['translate'][$word];
+    }
 }
 

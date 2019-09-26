@@ -58,6 +58,8 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         ),
         'A' => 
         array (
+            'AppModel\\' => 9,
+            'AppHelpel\\' => 10,
             'AppControler\\' => 13,
         ),
     );
@@ -150,6 +152,14 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         'CoreErorr\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core/erorrs',
+        ),
+        'AppModel\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Models',
+        ),
+        'AppHelpel\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Helpel',
         ),
         'AppControler\\' => 
         array (
