@@ -6,10 +6,12 @@
       "CoreErorr\\": "core/erorrs",
       "Corehelpel\\":"core/helpel/class",
       "Corelanguage\\":"core/lang",
+      "Coreinterface\\":"core/interface",
+      "CoreGard\\":"core/maingard",
       "AppControler\\": "app/Controlers",
       "AppModel\\":"app/Models",
       "AppHelpel\\":"app/Helpel"
-  
+
     },
     "files": [
       "core/helpel/helpel.php",

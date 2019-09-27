@@ -5,16 +5,13 @@ class urls{
     function addToIssetUrl($data){
         self::$url='?'.$_SERVER['QUERY_STRING'].'&&'.$data;
     }
-    static function redirect(){
-        header('Location: index.php'.self::$url);
-    }
     static function refresh(){
-        header('Location: '.$_SERVER['HTTP_REFERER']);
+        header('Location: '.config['projectUrl']);
     }
     static function home(){
-        header('Location: http://localhost/mvc/home');
+        header('Location: '.config['projectUrl'].config['home']);
     }
     static function setLocation($url){
-        header('Location:'.$url);
+        header('Location:'.config['projectUrl'].$url);
     }
 }

@@ -7,22 +7,24 @@ abstract class controller{
     use \singletonCreate,\className;
     public $Settings=array();
     abstract function main();
-    private function __construct(){
-        //$this->Settings['templete']=config['templete'];   
+    private function __construct($gard){
+        if($gard){
+            $gard->check();
+        }  
         $this->onConstract();
         $this->Settings=config['defultController'];
         $this->setmethod();
         $this->setTemplete();
-        
+        if(isset($_POST) && count($_POST)>0){
+            $this->onPost();
+        }
     }
     function onConstract(){}
     function setmethod(){
         $this->settings();
         $this->check();
     }
-    function settings(){
-    
-    }
+    function settings(){}
     private function check(){
         if($this->Settings['requiredUrl']){
             if(count(url)!=$this->Settings['requiredUrl']){
@@ -39,18 +41,19 @@ abstract class controller{
             $className = 'app/controlers/' .$getTemplete. '.htm';
             if(file_exists($className)){
                 $this->templete = new CTemplate($className);
+                $this->templete->CAdd('[#TITLE#]',$this->Settings['title']);
             }else{
                 $TemplateEror=language::trnaslate('TemplateEror',false,'{className}',$className);
                 erorrDetect::thrownew('TemplateEror',$TemplateEror);
             }
         }
     }
+    function onPost(){}
     function render(){
         if($this->Settings['templete']){
             return $this->templete->CGet();
         }
         
     }
-
 }
 

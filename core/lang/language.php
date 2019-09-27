@@ -17,7 +17,7 @@ class language{
     }
      /* this function is use for trnalate when is a varable in the string or use sex  
 exception */
-    static function trnaslate($word,$sexSet=false,$searchfor,$value,$array=true){
+    static function trnaslate($word,$sexSet=false,$searchfor=false,$value=false,$array=true){
         if($array){
             $word=language['translate'][$word];
         }

@@ -102,14 +102,13 @@
             $sqlQuery='UPDATE '.self::$table.' SET';
             $sqlQuery.=self::SetUpdate($values);
             $sqlQuery.=' WHERE '.self::$idName.' ='.self::$id;
-            echo $sqlQuery;
             return $sql->MsQuery($sqlQuery);
         }
-        static function where($where,$field,$operator){
+        static function where($where,$field,$operator,$debag=false){
             $sql= new sql();
             $query = 'SELECT * FROM  '.self::$table.' where ' .$sql->escepeString($field). ' ' . $sql->escepeString($operator) . ' "' . $sql->escepeString($where) . '"';
             $equery=$sql->SqlloopAll($query);
-            if(count($equery)==0){
+            if(count($equery)==0 && $debag){
                 $dataError=language::trnaslate('dataError',false,'{where}',$where);
                 $dataError=language::trnaslate($dataError,false,'{field}',$field,false);
                 erorrDetect::thrownew('dataError',$dataError);
@@ -121,7 +120,7 @@
                 self::$unique = $unique;
             }
             $query=self::where($value,self::$unique,'=');
-            if(count($query)>0){
+            if($query){
                 return true;
             }
             return false;

@@ -38,6 +38,7 @@ class mainControler extends controller{
         if($this->Settings['templete']){
             return $this->render();
         }
+        
     }
 }
 

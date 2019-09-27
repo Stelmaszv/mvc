@@ -51,9 +51,11 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         'C' => 
         array (
             'Corelanguage\\' => 13,
+            'Coreinterface\\' => 14,
             'Corehelpel\\' => 11,
             'CoreMain\\' => 9,
             'CoreIoC\\' => 8,
+            'CoreGard\\' => 9,
             'CoreErorr\\' => 10,
         ),
         'A' => 
@@ -137,6 +139,10 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         array (
             0 => __DIR__ . '/../..' . '/core/lang',
         ),
+        'Coreinterface\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/interface',
+        ),
         'Corehelpel\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core/helpel/class',
@@ -148,6 +154,10 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         'CoreIoC\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core/IoC',
+        ),
+        'CoreGard\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/maingard',
         ),
         'CoreErorr\\' => 
         array (

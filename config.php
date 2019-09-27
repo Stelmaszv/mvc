@@ -9,14 +9,28 @@ $config['projectname']='mvc';
 $config['projectUrl']='http://localhost/mvc/';
 $config['defultController']=array(
     'templete'=>true,
-    'requiredUrl'=>0
+    'requiredUrl'=>0,
+    'title'=>$config['projectname']
 );
+$config['homeControler']='home';
 // data base settings
 $config['host']='localhost';
 $config['username']='root';
 $config['password']='';
 $config['dbname']='test';
 $config['port']='3306';
+// auth 
+$passwordOptions = [
+    'cost' => 12,
+];
+$auth=[
+    'table'              =>'users',
+    'loginField'         =>'login',
+    'password'           => 'password',
+    'passwordOptions'    => $passwordOptions
+];
+$config['auth']=$auth;
+
 define('config',$config);
 /*set Url*/
 if(isset($_GET['url'])){
