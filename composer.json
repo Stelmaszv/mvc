@@ -8,9 +8,13 @@
       "Corelanguage\\":"core/lang",
       "Coreinterface\\":"core/interface",
       "CoreGard\\":"core/maingard",
+      "CoreWebSocket\\":"core/WebSocket",
       "AppControler\\": "app/Controlers",
+      "AppMigration\\":"apphelpel/Migration",
       "AppModel\\":"app/Models",
-      "AppHelpel\\":"app/Helpel"
+      "AppHelpel\\":"apphelpel/others",
+      "AppSeeds\\":"apphelpel/Seeds",
+      "Appgenerator\\":"apphelpel/Appgenerator"
 
     },
     "files": [

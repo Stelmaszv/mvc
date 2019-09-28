@@ -16,3 +16,9 @@ function generatecontrolerLink($name,$method=false){
 function setconrollerShema($name){
     return 'app/controlers/'.$name.'.htm';
 }
+function procentCount($numbers,$number){
+    $all=array_sum($numbers);
+    $elment=$numbers[$number];
+    $prcent=$elment*100/$all;
+    return $prcent;
+}

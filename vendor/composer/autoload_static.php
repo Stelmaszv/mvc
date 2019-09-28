@@ -53,6 +53,7 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
             'Corelanguage\\' => 13,
             'Coreinterface\\' => 14,
             'Corehelpel\\' => 11,
+            'CoreWebSocket\\' => 14,
             'CoreMain\\' => 9,
             'CoreIoC\\' => 8,
             'CoreGard\\' => 9,
@@ -60,7 +61,10 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         ),
         'A' => 
         array (
+            'Appgenerator\\' => 13,
+            'AppSeeds\\' => 9,
             'AppModel\\' => 9,
+            'AppMigration\\' => 13,
             'AppHelpel\\' => 10,
             'AppControler\\' => 13,
         ),
@@ -147,6 +151,10 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         array (
             0 => __DIR__ . '/../..' . '/core/helpel/class',
         ),
+        'CoreWebSocket\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/WebSocket',
+        ),
         'CoreMain\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core/main',
@@ -163,13 +171,25 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         array (
             0 => __DIR__ . '/../..' . '/core/erorrs',
         ),
+        'Appgenerator\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/apphelpel/Appgenerator',
+        ),
+        'AppSeeds\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/apphelpel/Seeds',
+        ),
         'AppModel\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/Models',
         ),
+        'AppMigration\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/apphelpel/Migration',
+        ),
         'AppHelpel\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app/Helpel',
+            0 => __DIR__ . '/../..' . '/apphelpel/others',
         ),
         'AppControler\\' => 
         array (
