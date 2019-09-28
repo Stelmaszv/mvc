@@ -24,9 +24,9 @@ class mainControler extends controller{
               if(method_exists($this->controler,$function)){
                 $this->controler->$function();
               }else{
-                $ControlerMethodError=language::trnaslate('ControlerMethodError',false,'{function}',$function);
-                $ControlerMethodError=language::trnaslate($ControlerMethodError,false,'{controler}',$this->classname(),false);
-                erorrDetect::thrownew('ControlerMethodError',$ControlerMethodError);
+               // $ControlerMethodError=language::trnaslate('ControlerMethodError',false,'{function}',$function);
+               // $ControlerMethodError=language::trnaslate($ControlerMethodError,false,'{controler}',$this->classname(),false);
+               // erorrDetect::thrownew('ControlerMethodError',$ControlerMethodError);
               }
             }
         }else{

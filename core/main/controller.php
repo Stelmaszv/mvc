@@ -20,7 +20,7 @@ abstract class controller{
         }
     }
     function onConstract(){}
-    function setmethod(){
+    private function setmethod(){
         $this->settings();
         $this->check();
     }
@@ -37,15 +37,22 @@ abstract class controller{
     }
     private function setTemplete(){
         if($this->Settings['templete']){
-            $getTemplete=$this->classname();
-            $className = 'app/controlers/' .$getTemplete. '.htm';
-            if(file_exists($className)){
-                $this->templete = new CTemplate($className);
-                $this->templete->CAdd('[#TITLE#]',$this->Settings['title']);
+            if($this->Settings['templeteshema']){
+                $className = $this->Settings['templeteshema'];
             }else{
-                $TemplateEror=language::trnaslate('TemplateEror',false,'{className}',$className);
-                erorrDetect::thrownew('TemplateEror',$TemplateEror);
+                $getTemplete=$this->classname();
+                $className = 'app/controlers/' .$getTemplete. '.htm';
             }
+            $getTemplete=$this->classname();
+
+                if(file_exists($className)){
+                    $this->templete = new CTemplate($className);
+                    $this->templete->CAdd('[#TITLE#]',$this->Settings['title']);
+                }else{
+                    $TemplateEror=language::trnaslate('TemplateEror',false,'{className}',$className);
+                    erorrDetect::thrownew('TemplateEror',$TemplateEror);
+                }
+            
         }
     }
     function onPost(){}

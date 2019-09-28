@@ -13,3 +13,6 @@ function generatecontrolerLink($name,$method=false){
     }
     return config['projectUrl'].$name.'/'.$method.'/';
 }
+function setconrollerShema($name){
+    return 'app/controlers/'.$name.'.htm';
+}

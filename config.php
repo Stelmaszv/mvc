@@ -10,7 +10,8 @@ $config['projectUrl']='http://localhost/mvc/';
 $config['defultController']=array(
     'templete'=>true,
     'requiredUrl'=>0,
-    'title'=>$config['projectname']
+    'title'=>$config['projectname'],
+    'templeteshema'  =>false
 );
 $config['homeControler']='home';
 // data base settings
@@ -38,6 +39,8 @@ if(isset($_GET['url'])){
 }else{
     $url=false;
 }
+define('controller',$url[0]);
+define('method',$url[1]);
 define('url',$url);
 
 /* get language */

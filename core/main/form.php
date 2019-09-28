@@ -12,14 +12,16 @@ class form{
     function upload(){
         foreach ($this->data as $el){
             if($el['type']=='file'){
-                $ext=strtolower(pathinfo(basename($el["value"]["name"]),PATHINFO_EXTENSION));
-                $url=$el['fileSettings']['url'].'/'.basename($el["value"]["name"]);
-                if(!is_dir($el['fileSettings']['url'])){
-                    mkdir($el['fileSettings']['url']);
-                }
-                move_uploaded_file($el["value"]["tmp_name"],$url);
-                if(isset($el['fileSettings']['newName'])){
-                    rename($url, $el['fileSettings']['url'].'/'.$el['fileSettings']['newName'].'.'.$ext );
+                if($el["value"]["name"]){
+                    $ext=strtolower(pathinfo(basename($el["value"]["name"]),PATHINFO_EXTENSION));
+                    $url=$el['fileSettings']['url'].'/'.basename($el["value"]["name"]);
+                    if(!is_dir($el['fileSettings']['url'])){
+                        mkdir($el['fileSettings']['url']);
+                    }
+                    move_uploaded_file($el["value"]["tmp_name"],$url);
+                    if(isset($el['fileSettings']['newName'])){
+                        rename($url, $el['fileSettings']['url'].'/'.$el['fileSettings']['newName'].'.'.$ext );
+                    }
                 }
             }
         }
@@ -233,17 +235,21 @@ class password extends validatebase{
 class file extends validatebase{
     public function execute($el, $array){
         $array=[];
-        if($this->isstFile($el)) {
-            $emptyFile=language::trnaslate('emptyFile',false,'{name}',$el['name']);
-            array_push($array,$emptyFile);
-        }
-        if($this->ifSize($el)){
-            $tobigFile=language::trnaslate('tobigFile',false,'{name}',$el['name']);
-            array_push($array, $tobigFile);
-        }
-        if($this->ifExt($el)){
-            $ext=language::trnaslate('ext',false,'{name}',$el['name']);
-            array_push($array,$ext);
+        if($el['require']){
+            if($this->isstFile($el)) {
+                $emptyFile=language::trnaslate('emptyFile',false,'{name}',$el['name']);
+                array_push($array,$emptyFile);
+            }
+            if($this->ifSize($el)){
+                $tobigFile=language::trnaslate('tobigFile',false,'{name}',$el['name']);
+                array_push($array, $tobigFile);
+            }
+            if($this->ifExt($el)){
+                if(!$this->isstFile($el)) {
+                    $ext=language::trnaslate('ext',false,'{name}',$el['name']);
+                    array_push($array,$ext);
+                }
+            }
         }
         $el['erros']=$array;
         return $el;
