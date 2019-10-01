@@ -76,9 +76,21 @@
         }
         public function SetMethods(){}
         static function faind($id=false){
-            self::$id=intval($id);
-            $query=self::where(intval($id),self::$idName,'=');
+            if(!intval($id)){
+                $dataError=language::trnaslate('intigerError');
+                erorrDetect::thrownew('intigerError',$dataError);
+            }else{
+                self::$id=intval($id);
+                $query=self::where(intval($id),self::$idName,'=');
+                if(!$query){
+                    $dataError=language::trnaslate('dataError',false,'{field}','id');
+                    $dataError=language::trnaslate($dataError,false,'{where}',$id,false);
+                    erorrDetect::thrownew('dataError',$dataError);
+                }
+            }
             return $query[0];
+            
+            
         }
         static public function showAll($limit=false){
             $sql= new sql();

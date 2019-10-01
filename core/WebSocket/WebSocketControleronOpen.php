@@ -1,6 +1,6 @@
 <?php
 namespace CoreWebSocket;
-use App\webSocket;
+use CoreMain\CoreWebSocket;
 class WebSocketControleronOpen extends webSocket{
     function execute(){
         echo 'new user';

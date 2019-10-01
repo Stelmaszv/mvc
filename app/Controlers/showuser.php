@@ -7,19 +7,16 @@ use Corehelpel\urls;
 class showuser extends controller{
     function onConstract(){ 
         $this->users=new users;
+        $this->array=$this->users::faind(url[2]);
         $this->Editsucess=isset($_GET['editsucess']);
     }
     function main(){
         $this->addelemts();
-        $this->array=$this->users::faind(url[2]);
     }
     function edit(){
-        $this->array=$this->users::faind(url[2]);
         $this->templete->CLoop('errors', array());
-        $this->addelemts();
-        
     }
-    protected function addelemts(){
+    private function addelemts(){
         $this->templete->CIf('editsucess',$this->Editsucess);
         $this->templete->CAdd('[#LOGIN#]',$this->array['login']);
         $this->templete->CAdd('[#EMAIL#]',$this->array['email']);

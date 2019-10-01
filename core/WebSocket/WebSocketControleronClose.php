@@ -1,8 +1,8 @@
 <?php
 namespace CoreWebSocket;
-use App\webSocket;
+use CoreWebSocket\CoreWebSocket;
 class WebSocketControleronClose extends webSocket {
     function execute(){
-        //echo 'bye bye';
+        echo 'bye bye';
     }
 }

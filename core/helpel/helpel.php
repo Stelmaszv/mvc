@@ -22,3 +22,28 @@ function procentCount($numbers,$number){
     $prcent=$elment*100/$all;
     return $prcent;
 }
+function includeMedia($dir){
+    if(!is_array($dir)){
+        $count = 0;
+        if ($handle = opendir($dir)) {
+            $items = array();
+            while (false !== ($file = readdir($handle))) {
+                if (($file <> ".") && ($file <> "..")) {
+                    $items[]=array(
+                        'name'=>$dir.''.$file
+                    );
+                }
+            }
+            closedir($handle);
+           return  $items;
+        }
+    }else{
+       $items = array();
+       foreach($dir as $el){
+           $items[]=array(
+            'name'=>$el
+           );
+       }
+       return  $items;
+    }
+}

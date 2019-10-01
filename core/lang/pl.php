@@ -11,6 +11,8 @@ $language=array(
         'ModeltableError'=> 'Niezdefiowana tabeli w modelu {model} albo tabela nie istnieje',
         'urlLanght'=> 'Brakuje {Langht}/{required} prametrów w adresie w kontrolerze {controler}',
         'dataError'  => 'Nie można znalisc danych w modelu prametry :pole={field},wartość={where}',
+        'noerror'  => 'Nie znalzionego błędu',
+        'intigerError'=> 'wartosc w funkcji faind musi być liczba ! ',
         //validation
         'tomenyUper' =>'W hasle znajduje sie za dużo ducych liter',
         'tomenyLower' =>'W hasle znajduje sie za dużo małych liter',

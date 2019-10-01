@@ -1,3 +1,3 @@
 <?php
 use AppSeeds\addUser;
-new addUser(29);
+new addUser(0);

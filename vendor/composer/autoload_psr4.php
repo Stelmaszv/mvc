@@ -32,6 +32,7 @@ return array(
     'CoreGard\\' => array($baseDir . '/core/maingard'),
     'CoreErorr\\' => array($baseDir . '/core/erorrs'),
     'Appgenerator\\' => array($baseDir . '/apphelpel/Appgenerator'),
+    'AppWs\\' => array($baseDir . '/apphelpel/wsaction'),
     'AppSeeds\\' => array($baseDir . '/apphelpel/Seeds'),
     'AppModel\\' => array($baseDir . '/app/Models'),
     'AppMigration\\' => array($baseDir . '/apphelpel/Migration'),

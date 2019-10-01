@@ -14,7 +14,8 @@
       "AppModel\\":"app/Models",
       "AppHelpel\\":"apphelpel/others",
       "AppSeeds\\":"apphelpel/Seeds",
-      "Appgenerator\\":"apphelpel/Appgenerator"
+      "Appgenerator\\":"apphelpel/Appgenerator",
+      "AppWs\\":"apphelpel/wsaction"
 
     },
     "files": [

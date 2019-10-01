@@ -1,9 +1,8 @@
 <?php
 namespace CoreWebSocket;
-use App\webSocket;
-use helpels\debag;
-use helpels\json;
-use Wsaction\SedMess;
+use CoreWebSocket\webSocket;
+use Corehelpel\json;
+use AppWs\SedMess;
 class WebSocketControleronMessage extends webSocket{
     function execute($clients,$form,$mes){
         $a=[];

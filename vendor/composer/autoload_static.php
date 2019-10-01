@@ -62,6 +62,7 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         'A' => 
         array (
             'Appgenerator\\' => 13,
+            'AppWs\\' => 6,
             'AppSeeds\\' => 9,
             'AppModel\\' => 9,
             'AppMigration\\' => 13,
@@ -174,6 +175,10 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         'Appgenerator\\' => 
         array (
             0 => __DIR__ . '/../..' . '/apphelpel/Appgenerator',
+        ),
+        'AppWs\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/apphelpel/wsaction',
         ),
         'AppSeeds\\' => 
         array (

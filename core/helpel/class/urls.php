@@ -27,6 +27,11 @@ class urls{
     static function home(){
         header('Location: '.config['projectUrl'].config['home']);
     }
+    static function error($error){
+        $url=config['projectUrl'].'error/main'.$error;
+        header('Location: '.$url);
+        die();
+    }
     static function setLocation($url){
         header('Location:'.config['projectUrl'].$url);
     }

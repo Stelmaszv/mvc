@@ -1,6 +1,7 @@
 <?php
 namespace CoreMain;
 use CoreErorr\erorrDetect;
+use Corelanguage\language;
 class router{
     public static $setings=array();
     public static $registry = [];
@@ -15,14 +16,23 @@ class router{
     }
     static function createview(){
         if(url){
-            if(count(static::$urls[url[0]])==count(url)){
-                return self::resolve(url[0]);
+            if(isset(static::$urls[url[0]])){
+                if(count(static::$urls[url[0]])==count(url)){
+                    return self::resolve(url[0]);
+                }
+            }else{
+                $ControllerExistError=language::trnaslate('TemplateEror',false,'{name}',url[0]);
+                erorrDetect::thrownew($ControllerExistError,'ControllerExistError');
+                die();
             }
         }else{
-            return self::resolve('home');
+            return self::resolve('home'); 
         }
     }
     public static function resolve($name=false){
+        if (!static::registered($name)) {
+         
+        }
         $name = static::$registry[$name];
         return $name(new self);
     }

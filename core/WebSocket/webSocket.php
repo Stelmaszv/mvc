@@ -27,6 +27,5 @@ class webSocket implements MessageComponentInterface{
     public function onMessage(ConnectionInterface $from, $msg){
         $onOpen= new WebSocketControleronMessage();
         $onOpen->execute($this->clients,$from,$msg);
-
     }
 }
