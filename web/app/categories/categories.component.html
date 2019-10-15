@@ -1,0 +1,24 @@
+<h3 class="first">Lista kategorii <div *ngIf="currentPage > 0">{{currentPage}}</div></h3>
+<button (click)="editCategory()" class="btn btn-info">Add</button>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+
+    <tr *ngFor="let category of categories">
+        <td>{{category.catId}}</td>
+        <td>{{category.catName}}</td>
+        <td>{{category.catStatus}}</td>
+        <td><button (click)="editCategory(category)" class="btn btn-info">Edit</button></td>
+
+    </tr>
+</table>
+
+<div *ngIf="totalItems > 0">
+    <!--<ng-pagination ngDefaultControl [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" (pageChanged)="pageChanged()"-->
+                   <!--first-text="First" last-text="Last"></ng-pagination>-->
+</div>

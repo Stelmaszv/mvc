@@ -1,0 +1,26 @@
+<div *ngIf="category">
+    <h3>
+    <span [ngSwitch]="category.catId">
+        <span *ngSwitchCase="0">Dodawanie</span>
+        <span *ngSwitchDefault>Edycja</span>
+    </span>
+
+        kategorii <i>{{category.catName}} #{{category.catStatus}}</i></h3>
+
+
+    <div class="form-group">
+        <label for="categoryName">Category name</label>
+        <input type="text" class="form-control" id="categoryName" placeholder="Name" [(ngModel)]="category.catName">
+    </div>
+
+
+    <div class="form-group">
+        <label for="categoryStatus">Category status</label>
+        <select [(ngModel)]="category.catStatus" id="categoryStatus" name class="form-control">
+            <option *ngFor="let status of statusList" value="{{status.value}}">{{status.label}}</option>
+        </select>
+    </div>
+
+    <button type="submit" (click)="saveCategory()" class="btn btn-default">Save</button>
+
+</div>

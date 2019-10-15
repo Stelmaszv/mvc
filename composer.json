@@ -1,29 +1,16 @@
 {
-  "autoload": {
-    "psr-4": {
-      "CoreMain\\": "core/main",
-      "CoreIoC\\": "core/IoC",
-      "CoreErorr\\": "core/erorrs",
-      "Corehelpel\\":"core/helpel/class",
-      "Corelanguage\\":"core/lang",
-      "Coreinterface\\":"core/interface",
-      "CoreGard\\":"core/maingard",
-      "CoreWebSocket\\":"core/WebSocket",
-      "AppControler\\": "app/Controlers",
-      "AppMigration\\":"apphelpel/Migration",
-      "AppModel\\":"app/Models",
-      "AppHelpel\\":"apphelpel/others",
-      "AppSeeds\\":"apphelpel/Seeds",
-      "Appgenerator\\":"apphelpel/Appgenerator",
-      "AppWs\\":"apphelpel/wsaction"
-
+    "autoload": {
+        "psr-4": {
+            "": "src/",
+            "Simplex\\": "simplex"
+        }
     },
-    "files": [
-      "core/helpel/helpel.php",
-      "core/trait/trait.php"
-    ]
-  },
-  "require": {
-    "cboden/ratchet": "^0.4"
-  }
+    "require": {
+        "symfony/http-foundation": "^3.0",
+        "symfony/routing": "^3.0",
+        "symfony/http-kernel": "^3.0",
+        "twig/twig": "~1.0",
+        "doctrine/orm": "^2.5",
+        "firebase/php-jwt": "^4.0"
+    }
 }
