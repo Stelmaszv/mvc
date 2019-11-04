@@ -2,7 +2,7 @@
 MVC framework for PHP. Useing libarays for synfony.<br>
 <b>Selected technologies : PHP, mysql, sql, OPP,SOLID, Design Patterns ,html ,css , js </b>
 
-<h2>futures in projects</h2>
+<h2>Futures in projects</h2>
 <ul>
   <li>Controllers , model and my own templetes system for views</li>
   <li>Router with gard system to prevent not authorized enter </li>
