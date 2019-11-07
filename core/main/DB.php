@@ -5,7 +5,7 @@
     class DB{
         private $sql;
         private $pdo;
-        function __construct(){
+        public function __construct(){
             try{
                 $this->pdo = new \PDO('mysql:host='.config['host'].';dbname='.config['dbname'].';port='.config['port'],config['username'],config['password']);
                 $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
@@ -15,7 +15,7 @@
                 
             }
         }
-        function sqlloopAll($sql,$array=array()){
+        public function sqlloopAll($sql,$array=array()){
             $query=$this->pdo->prepare($sql);
             $query->execute($array);
             $array=[];
@@ -24,14 +24,14 @@
             }
             return $array;
         }
-        function query($sql,$array=array()){
+        public function query($sql,$array=array()){
             $query=$this->pdo->prepare($sql);
             $query->execute($array);
         }
-        function sqlOne($sql,$array=array()){
+        public function sqlOne($sql,$array=array()){
             return $this->sqlloopAll($sql,$array)[0];
         }
-        function countSql($sql,$array=array()){
+        public function countSql($sql,$array=array()){
             return count($this->sqlloopAll($sql,$array));
         }
 

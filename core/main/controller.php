@@ -11,13 +11,13 @@ abstract class controller{
         if($gard){
             $gard->check();
         }  
-        $this->onConstract();
         $this->Settings=config['defultController'];
         $this->setmethod();
         $this->setTemplete();
         if(isset($_POST) && count($_POST)>0){
             $this->onPost();
         }
+        $this->onConstract();
     }
     function onConstract(){}
     private function setmethod(){
@@ -33,7 +33,6 @@ abstract class controller{
                 $className = 'app/controlers/' .$getTemplete. '.htm';
             }
             $getTemplete=$this->classname();
-
                 if(file_exists($className)){
                     $this->templete = new CTemplate($className);
                 }else{

@@ -2,7 +2,7 @@
 namespace CoreWebSocket;
 use CoreWebSocket\CoreWebSocket;
 class WebSocketControleronClose extends webSocket {
-    function execute(){
+    public function execute(){
         echo 'bye bye';
     }
 }

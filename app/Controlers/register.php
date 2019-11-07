@@ -6,10 +6,10 @@ use CoreMain\form;
 use Corehelpel\urls;
 use CoreMain\auth;
 class register extends controller{
-    function main() { 
+    public function main() { 
         $this->templete->CLoop('errors', array());
     }
-    function onPost(){
+    public function onPost(){
         $from=new form(array(
             'login'=>array('name'=>'login','require'=>true,'max'=>50,'min'=>5,'type'=>'text','value'=>$_POST['login'],'stan'=>false,'login'=>true,'db'=>'login','erros'=>array(),'unique'=>array(new authModel(),false)),
             'password'=>array('name'=>'password','require'=>true,'max'=>50,'min'=>6,'type'=>'password','value'=>$_POST['password'],'db'=>'password','stan'=>false,'erros'=>array()),

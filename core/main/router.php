@@ -14,7 +14,7 @@ class router{
     public static function registered($name){
         return array_key_exists($name, static::$registry);
     }
-    static function createview(){
+    public static function createview(){
         if(url){
             if(isset(static::$urls[url[0]])){
                 if(count(static::$urls[url[0]])==count(url)){

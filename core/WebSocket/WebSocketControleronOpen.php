@@ -2,7 +2,7 @@
 namespace CoreWebSocket;
 use CoreMain\CoreWebSocket;
 class WebSocketControleronOpen extends webSocket{
-    function execute(){
+    public function execute(){
         echo 'new user';
     }
 }

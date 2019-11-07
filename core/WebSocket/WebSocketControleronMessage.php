@@ -4,7 +4,7 @@ use CoreWebSocket\webSocket;
 use Corehelpel\json;
 use AppWs\SedMess;
 class WebSocketControleronMessage extends webSocket{
-    function execute($clients,$form,$mes){
+    public function execute($clients,$form,$mes){
         $a=[];
         $a['messages']=new SedMess();
         $mes=json::json_decode($mes);

@@ -5,7 +5,8 @@ use CoreMain\webCrawler;
 
 class randomUserData{
     private $count;
-    public function __construct($count){
+    private $webCrawler;
+    public function __construct(int $count){
         $this->count=$count;
         $this->webCrawler = new webCrawler('https://randomuser.me/api/?format=json&results='.$count);
         $this->webCrawler->url = json::json_decode($this->webCrawler->url);

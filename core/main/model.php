@@ -24,10 +24,6 @@
         static  function showTableName(){
             return self::$table;
         }
-        private function sqlProtection(){
-            $sql= new sql();
-            self::$table=$sql->escepeString(self::$table);
-        }
         static function insert($array){
             $sql= new sql();
             $query='INSERT INTO '.self::$table;
@@ -37,6 +33,98 @@
                 return $sql->lostId();
             }
             return 0;
+        }
+        public function SetMethods(){}
+        public static function faind(int $id){
+            if(!intval($id)){
+                $dataError=language::trnaslate('intigerError');
+                erorrDetect::thrownew('intigerError',$dataError);
+            }else{
+                self::$id=intval($id);
+                $query=self::where(intval($id),self::$idName,'=');
+                if(!$query){
+                    $dataError=language::trnaslate('dataError',false,'{field}','id');
+                    $dataError=language::trnaslate($dataError,false,'{where}',$id,false);
+                    erorrDetect::thrownew('dataError',$dataError);
+                }
+            }
+            return $query[0];
+        }
+        public static function showAll($limit=false){
+            $sql= new sql();
+            if(!$limit) {
+                $array=$sql->SqlloopAll('SELECT * FROM '.self::$table );
+            }else{
+                $array=$sql->SqlloopAll('SELECT * FROM '.self::$table .' LIMIT '.intval($limit).' ');
+            }
+            return $array;
+        }
+        public static function delete(int $id){
+            self::$id=intval($id);
+            $sql= new sql();
+            $query='DELETE FROM '.self::$table .' WHERE '.self::$idName.'  = '.self::$id;
+            return $sql->MsQuery($query);
+        }
+        public static function updata(int $id,$values){
+
+            self::$id=intval($id);
+            $sql= new sql();
+            $sqlQuery='UPDATE '.self::$table.' SET';
+            $sqlQuery.=self::SetUpdate($values);
+            $sqlQuery.=' WHERE '.self::$idName.' ='.self::$id;
+            return $sql->MsQuery($sqlQuery);
+        }
+        public function unique($unique=false,$value){
+            if($unique) {
+                self::$unique = $unique;
+            }
+            $query=self::where($value,self::$unique,'=');
+            if($query){
+                return true;
+            }
+            return false;
+        }
+        private function SetUpdate($values){
+            $sql = new sql();
+            $updata = '';
+            $loop = $sql->SqlloopAll('SHOW COLUMNS FROM ' . self::$table);
+            $index = 0;
+            $usedFields=array();
+            foreach ($loop as $field){
+                foreach ($values as $data) {
+                    if($field['Field']==$data['field']){
+                        array_push($usedFields,$field['Field']);
+                    }
+
+                }
+            }
+            foreach ($usedFields as $el){
+                foreach ($values as $data) {
+                    if($el==$data['field']){
+                        if (gettype($data['value']) != 'integer') {
+                            $updata .= ' ' . $el . '="' . $sql->escepeString($data['value']) . '" ';
+                        }else{
+                            $updata .= ' ' . $el . '=' . intval($data['value']) . ' ';
+                        }
+                        if ($index != count($values)-1) {
+                            $updata .= ', ';
+                        }
+                    }
+                }
+                $index++;
+            }
+            return $updata;
+        }
+        private  static function where($where,$field,$operator,$debag=false){
+            $sql= new sql();
+            $query = 'SELECT * FROM  '.self::$table.' where ' .$sql->escepeString($field). ' ' . $sql->escepeString($operator) . ' "' . $sql->escepeString($where) . '"';
+            $equery=$sql->SqlloopAll($query);
+            if(count($equery)==0 && $debag){
+                $dataError=language::trnaslate('dataError',false,'{where}',$where);
+                $dataError=language::trnaslate($dataError,false,'{field}',$field,false);
+                erorrDetect::thrownew('dataError',$dataError);
+            }
+            return  $equery;
         }
         private function returnValues($array){
             $values=' VALUES(';
@@ -74,100 +162,9 @@
             $fields.=")";
             return $fields;
         }
-        public function SetMethods(){}
-        static function faind($id=false){
-            if(!intval($id)){
-                $dataError=language::trnaslate('intigerError');
-                erorrDetect::thrownew('intigerError',$dataError);
-            }else{
-                self::$id=intval($id);
-                $query=self::where(intval($id),self::$idName,'=');
-                if(!$query){
-                    $dataError=language::trnaslate('dataError',false,'{field}','id');
-                    $dataError=language::trnaslate($dataError,false,'{where}',$id,false);
-                    erorrDetect::thrownew('dataError',$dataError);
-                }
-            }
-            return $query[0];
-            
-            
-        }
-        static public function showAll($limit=false){
+        private function sqlProtection(){
             $sql= new sql();
-            if(!$limit) {
-                $array=$sql->SqlloopAll('SELECT * FROM '.self::$table );
-            }else{
-                $array=$sql->SqlloopAll('SELECT * FROM '.self::$table .' LIMIT '.intval($limit).' ');
-            }
-            return $array;
-        }
-        static public function delete($id=false){
-            self::$id=intval($id);
-            $sql= new sql();
-            $query='DELETE FROM '.self::$table .' WHERE '.self::$idName.'  = '.self::$id;
-            return $sql->MsQuery($query);
-        }
-        static public function updata($id=false,$values){
-
-            self::$id=intval($id);
-            $sql= new sql();
-            $sqlQuery='UPDATE '.self::$table.' SET';
-            $sqlQuery.=self::SetUpdate($values);
-            $sqlQuery.=' WHERE '.self::$idName.' ='.self::$id;
-            return $sql->MsQuery($sqlQuery);
-        }
-        static function where($where,$field,$operator,$debag=false){
-            $sql= new sql();
-            $query = 'SELECT * FROM  '.self::$table.' where ' .$sql->escepeString($field). ' ' . $sql->escepeString($operator) . ' "' . $sql->escepeString($where) . '"';
-            $equery=$sql->SqlloopAll($query);
-            if(count($equery)==0 && $debag){
-                $dataError=language::trnaslate('dataError',false,'{where}',$where);
-                $dataError=language::trnaslate($dataError,false,'{field}',$field,false);
-                erorrDetect::thrownew('dataError',$dataError);
-            }
-            return  $equery;
-        }
-        function unique($unique=false,$value){
-            if($unique) {
-                self::$unique = $unique;
-            }
-            $query=self::where($value,self::$unique,'=');
-            if($query){
-                return true;
-            }
-            return false;
-
-        }
-        private function SetUpdate($values){
-            $sql = new sql();
-            $updata = '';
-            $loop = $sql->SqlloopAll('SHOW COLUMNS FROM ' . self::$table);
-            $index = 0;
-            $usedFields=array();
-            foreach ($loop as $field){
-                foreach ($values as $data) {
-                    if($field['Field']==$data['field']){
-                        array_push($usedFields,$field['Field']);
-                    }
-
-                }
-            }
-            foreach ($usedFields as $el){
-                foreach ($values as $data) {
-                    if($el==$data['field']){
-                        if (gettype($data['value']) != 'integer') {
-                            $updata .= ' ' . $el . '="' . $sql->escepeString($data['value']) . '" ';
-                        }else{
-                            $updata .= ' ' . $el . '=' . intval($data['value']) . ' ';
-                        }
-                        if ($index != count($values)-1) {
-                            $updata .= ', ';
-                        }
-                    }
-                }
-                $index++;
-            }
-            return $updata;
+            self::$table=$sql->escepeString(self::$table);
         }
     }
 ?>

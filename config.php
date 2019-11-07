@@ -69,4 +69,3 @@ define('url',$url);
 /* get language */
 new language;
 language::changeLanguage('eng');
-// echo language::trnaslate('like','F','{Name}','Dymka'); language schema

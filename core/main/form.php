@@ -2,14 +2,15 @@
 namespace CoreMain;
 use Corelanguage\language;
 class form{
-    public function __construct($data){
+    private $data=[];
+    public function __construct(array $data){
         $this->data=$data;
         $this->checktypes();
     }
-    function validate(){
+    public function validate(){
         return $this->faindError();
     }
-    function upload(){
+    public function upload(){
         foreach ($this->data as $el){
             if($el['type']=='file'){
                 if($el["value"]["name"]){
@@ -26,7 +27,7 @@ class form{
             }
         }
     }
-    function showErors(){
+    public function showErors(){
         $errors=array();
         foreach($this->data as $el){
             foreach($el['erros'] as $error){
@@ -41,7 +42,7 @@ class form{
             return array();
         }
     }
-    function readyTosent(){
+    public function readyTosent(){
         $items=array();
         foreach ($this->data as $el){
             if(isset($el['db'])){
@@ -56,7 +57,6 @@ class form{
                         'value' => $el['value']['name']
                     );
                 }
-
                 array_push($items,$item);
             }
         }
@@ -96,8 +96,8 @@ class form{
     }
 }
 abstract class validatebase{
-    abstract function execute($el,$array);
-    function lenght($el){
+    abstract function execute(array $el,array $array);
+    protected function lenght(array $el){
         $array= array();
         if(strlen($el['value'])>$el['max']){
             $tolong=language::trnaslate('tolong',false,'{name}',$el['name']);
@@ -109,7 +109,13 @@ abstract class validatebase{
         }
         return $array;
     }
-    function faindField($array,$name){
+    protected function setStan($array){
+        if(count($array)>0){
+            return true;
+        }
+        return false;
+    }
+    private function faindField(array $array,string $name){
         foreach($array as $el){
             if(isset($el[$name])) {
                 if ($el[$name]) {
@@ -118,22 +124,9 @@ abstract class validatebase{
             }
         }
     }
-    function setStan($array){
-        if(count($array)>0){
-            return true;
-        }
-        return false;
-
-    }
-    function addErrors($AddElments,$toAraray){
-        foreach ($AddElments as $el){
-            array_push($toAraray,$el);
-        }
-        return $toAraray;
-    }
 }
 class text extends validatebase {
-    function execute($el,$array){
+    public function execute(array $el,array $array){
         $array=$this->lenght($el);
         if(isset($el['unique'])) {
             if($this->ifUnique($el['unique'],$el)){
@@ -145,12 +138,12 @@ class text extends validatebase {
         $el['erros']=$array;
         return $el;
     }
-    function ifUnique($obj,$el){
+    private function ifUnique($obj,$el){
         return $obj[0]->unique($obj[1],$el['value']);
     }
 }
 class email extends validatebase {
-    function execute($el,$array){
+    public function execute(array $el,array $array){
         $array=$this->lenght($el);
         if($this->ifEmial($el)){
             $wrongemail=language::trnaslate('wrongemail',false,'{name}',$el['name']);
@@ -160,7 +153,7 @@ class email extends validatebase {
         $el['erros']=$array;
         return $el;
     }
-    function ifEmial($el){
+    private function ifEmial($el){
         if (!filter_var($el['value'], FILTER_VALIDATE_EMAIL)) {
             return true;
         }
@@ -168,7 +161,7 @@ class email extends validatebase {
     }
 }
 class password extends validatebase{
-    function execute($el,$allElments){
+    public function execute($el,$allElments){
         $array=$this->lenght($el);
         $passStrenght=$this->passwordstrng($el['value'],$this->faindField($array,'login'));
         if($this->chceckPassword($el,$allElments)){
@@ -184,14 +177,14 @@ class password extends validatebase{
         $el['erros']=$array;
         return $el;
     }
-    function chceckPassword($el,$array){
+    private function chceckPassword($el,$array){
         $passwordConfirm=$this->faindField($array,'passwordConfirm');
         if($passwordConfirm['value']!=$el['value']){
             return true;
         }
         return false;
     }
-    function passwordstrng($pass,$user){
+    private function passwordstrng($pass,$user){
         $passwordErrors=array();
         if(strlen($pass)<6){
             $passwordshort=language::trnaslate('passwordshort');

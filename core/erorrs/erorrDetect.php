@@ -2,13 +2,13 @@
 namespace CoreErorr;
 use Corehelpel\urls;
 class erorrDetect{
-    static function thrownew($error,$errorName){
+    public static function thrownew($error,$errorName){
         self::debagcheck();
         $url='/'.$error;
         echo $errorName;
         die();
     }
-    function debagcheck(){
+    public function debagcheck(){
         if(!config['debag']){
             urls::home();
             die();

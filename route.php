@@ -32,11 +32,8 @@ router::route('login',function(){
 router::route('register',function(){
     return login::create(iflogin::create());
 });
-router::route('test',function(){
-    return test::create();
-});
 router::route('showUsers',function(){
-    return showUsers::create(ifauthlevel::create('admin'));
+    return showUsers::create();
 });
 $show=new mainControler(router::createview());
 echo $show->show();

@@ -3,7 +3,7 @@ namespace AppControler;
 use CoreMain\controller;
 use CoreMain\auth;
 class login extends controller{
-    function main(){
+    public function main(){
         $this->templete->CLoop('error',array());
     }
     public function onPost(){

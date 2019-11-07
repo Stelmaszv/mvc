@@ -4,7 +4,7 @@ trait singletonCreate {
     static function create($data=false) {
         static $instances = array();
         $calledClass = get_called_class();
-        if (!isset($instances[$calledClass])) {
+        if (!isset($instances[$calledClass])) {        
             $instances[$calledClass] = new $calledClass($data);
         }
         return $instances[$calledClass];

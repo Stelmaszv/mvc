@@ -11,17 +11,20 @@ class pagination{
      public  $back;
      public  $corentPage;
     public function __construct($limitOnPage){
-            $this->defult='http://localhost/mvc/'.url[0].'/'.url[1];
-            $this->CorentPage = isset(url[2]) && !empty(url[2])  ? intval(url[2]):1;
-            $this->sql = new sql();
-            $this->limitOnPage = $limitOnPage;
-            $this->skip = (($this->CorentPage - 1) * $this->limitOnPage);
+        $this->defult=$this->returndefult();
+        $this->CorentPage = isset($_GET['page']) && !empty($_GET['page'])  ? intval($_GET['page']):1;
+        $this->sql = new sql();
+        $this->limitOnPage = $limitOnPage;
+        $this->skip = (($this->CorentPage - 1) * $this->limitOnPage);
     }
     public function returnpagesInfo(){
         return array(
             'lastPage'=> $this->pagesCount,
             'CorrentPage'=>$this->CorentPage
         );
+    }
+    private function returndefult(){
+        return 'http://localhost/mvc/'.url[0];
     }
     private function headerBlock(){
         if(!isset($this->CorentPage)){
@@ -39,7 +42,7 @@ class pagination{
         }
     }
     private function AddPage($page){
-        $this->url=$this->defult.'/'.$page;
+        $this->url=$this->defult.'?page='.$page;
     }
     public function setSql($sql){
         $this->query=$sql;
@@ -62,7 +65,7 @@ class pagination{
             $this->AddPage($back);
             return $this->url;
         }else{
-            $this->back=false;
+            $this->back='dqwd';
         }
     }
     public function ifNext(){
@@ -79,24 +82,21 @@ class pagination{
     private function ifLast($el){
         if($el==$this->pagesCount){
             return true;
-        }else{
-            return false;
         }
-
+        return false;
     }
     private function ifFirst($el){
         if($el==1){
             return true;
-        }else{
-            return false;
         }
+        return false;
     }
     private function ifCorentPage($el){
         if($this->CorentPage==$el){
             return true;
-        }else{
-            return false;
         }
+        return false;
+        
     }
     private function returnClass($el){
         if($this->ifCorentPage($el)){

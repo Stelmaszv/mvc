@@ -6,11 +6,11 @@ use AppModel\authModel;
 use Coreinterface\authInterface;
 class auth implements authInterface{
     private $sql;
-    public function __construct($data){
+    public function __construct(array $data){
         $this->sql= new sql();
         $this->data= $data;
     }
-    function loginStart(){
+    public function loginStart(){
         $loginerros=array();
         $model=new authModel();
         $array=$model::where($this->data['login'],config['auth']['loginField'],'=');
@@ -32,55 +32,50 @@ class auth implements authInterface{
                 'error'=>'nie ma takiego uzytkonika'
             );
             array_push($loginerros,$erros);
-
         }
         return $loginerros;
     }
-    function setSession($data){
+    public function setSession(array $data){
         $_SESSION['auth']=$data;
         urls::refresh();
     }
-    static function ifAuth(){
+    public static function ifAuth(){
         if(isset($_SESSION['auth'])){
             return true;
-        }else{
-            return false;
         }
-
+        return false;
     }
-    static function returnAuth(){
+    public static function returnAuth(){
         return $_SESSION['auth'][0];
     }
-    static function logout(){
+    public static function logout(){
         session_destroy();
         urls::refresh();
     }
-    private function passwordCrypt($password){
-        $pass =password_hash($password,PASSWORD_BCRYPT,config['auth']['passwordOptions']);
-        return $pass;
-    }
-    function register(){
-
+    public function register(){
        $pass=$this->faindField(config['auth']['password']);
        $this->data[$pass]['value']=$this->passwordCrypt($this->data[$pass]['value']);
        $id=authModel::insert($this->data);
        $this->setSession(authModel::faind($id));
     }
-    private function faindField($field){
+    public static function ifLevel(string $required){
+        $level= self::returnAuth()['level'];
+        if($level==$required){
+            return true;
+        }
+        return false;
+
+    }
+    private function faindField(string $field){
         foreach ($this->data as $el=>$value){
             if($this->data[$el]['field']==$field){
                 return $el;
             }
-
         }
+        return false;
     }
-    static function ifLevel($required){
-        $level= self::returnAuth()['level'];
-        if($level==$required){
-            return true;
-        }else{
-            return false;
-        }
-
+    private function passwordCrypt(string $password){
+        $pass =password_hash($password,PASSWORD_BCRYPT,config['auth']['passwordOptions']);
+        return $pass;
     }
 }

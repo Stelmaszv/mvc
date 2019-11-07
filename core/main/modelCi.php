@@ -1,8 +1,8 @@
 <?php
 namespace CoreMain;
 interface modelCi{
-    static function faind($id=false);
-    static function showAll($limit);
-    static function delete($id=false);
-    static function updata($id=false,$values);
+    static function faind(int $id);
+    static function showAll($limit=false);
+    static function delete(int $id);
+    static function updata(int $id,$values);
 }

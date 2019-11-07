@@ -4,19 +4,19 @@ function vdab($array){
     echo var_dump($array);
     echo '</pre>';
 }
-function headerToUrl($url){
+function headerToUrl(string $url){
     header('Location: '.$url);
 }
-function generatecontrolerLink($name,$method=false){
+function generatecontrolerLink(string $name,$method=false){
     if(!$method){
         $method='main';
     }
     return config['projectUrl'].$name.'/'.$method.'/';
 }
-function setconrollerShema($name){
+function setconrollerShema(string $name){
     return 'app/controlers/'.$name.'.htm';
 }
-function procentCount($numbers,$number){
+function procentCount(int $numbers,int $number){
     $all=array_sum($numbers);
     $elment=$numbers[$number];
     $prcent=$elment*100/$all;
