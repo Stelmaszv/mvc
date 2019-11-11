@@ -3,10 +3,10 @@ namespace CoreMain;
 use CoreMain\CTemplate;
 use CoreErorr\erorrDetect;
 use Corelanguage\language;
-abstract class controller{
+use Coreinterface\controlerinterface;
+abstract class controller implements controlerinterface{
     use \singletonCreate,\className;
     public $Settings=array();
-    abstract function main();
     private function __construct($gard){
         if($gard){
             $gard->check();

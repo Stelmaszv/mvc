@@ -3,8 +3,7 @@ namespace CoreMain;
 use CoreMain\sql;
 use Corehelpel\urls;
 use AppModel\authModel;
-use Coreinterface\authInterface;
-class auth implements authInterface{
+class auth {
     private $sql;
     public function __construct(array $data){
         $this->sql= new sql();

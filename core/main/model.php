@@ -1,6 +1,6 @@
 <?php
     namespace CoreMain;
-    use CoreMain\modelCi;
+    use Coreinterface\modelCi;
     use helpels\urls;
     use mysql_xdevapi\Exception;
     use CoreMain\sql;
@@ -115,7 +115,7 @@
             }
             return $updata;
         }
-        private  static function where($where,$field,$operator,$debag=false){
+        public   static function where($where,$field,$operator,$debag=false){
             $sql= new sql();
             $query = 'SELECT * FROM  '.self::$table.' where ' .$sql->escepeString($field). ' ' . $sql->escepeString($operator) . ' "' . $sql->escepeString($where) . '"';
             $equery=$sql->SqlloopAll($query);

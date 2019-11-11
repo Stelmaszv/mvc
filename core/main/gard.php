@@ -1,9 +1,9 @@
 <?php
 namespace CoreMain;
-abstract class gard{
+use Coreinterface\gardinterface;
+abstract class gard implements gardinterface{
     use \singletonCreate;
     private function __construct($data){
         $this->check($data);
     }
-    abstract function check($data=false);
 }

@@ -1,9 +1,9 @@
 <?php
 namespace CoreMain;
-abstract class seader{
+use Coreinterface\seaderinterface;
+abstract class seader implements seaderinterface{
     function __construct($lenght){
         $this->seetings();
         $this->execute($lenght);
     }
-    abstract function execute($lenght);
 }

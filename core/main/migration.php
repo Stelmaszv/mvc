@@ -3,14 +3,14 @@
 //CREATE TABLE IF NOT EXISTS test (id int(11) NOT NULL AUTO_INCREMENT,PRIMARY KEY (`id`), login varchar(100) COLLATE utf8_polish_ci NOT NULL , email varchar(100) COLLATE utf8_polish_ci NOT NULL );
 namespace CoreMain;
 use CoreMain\sql;
-abstract class migration{
+use Coreinterface\migrationinterface;
+abstract class migration implements migrationinterface{
     private  $elemnts=[];
     private  $sql;
     public function __construct(){
        $this->sql= new sql();
        $this->create();
     }
-    abstract function run();
     private function create(){
         $this->elemnts=$this->run();
         if(!$this->faindTable($this->elemnts['table'])) {
