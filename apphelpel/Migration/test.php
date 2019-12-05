@@ -6,7 +6,7 @@ use CoreMain\migration;
 class test extends migration{
     public function run(){
        return array(
-           'table'=>'dupy',
+           'table'=>'test',
            'PRIMARYKEY'=>'id',
            'NULL'=>'NOT NULL',
            'COLLATE'=>array(
