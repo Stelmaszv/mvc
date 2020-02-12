@@ -15,9 +15,10 @@
       "AppHelpel\\":"apphelpel/others",
       "AppSeeds\\":"apphelpel/Seeds",
       "Appgenerator\\":"apphelpel/Appgenerator",
-      "AppWs\\":"apphelpel/wsaction"
-
-    },
+      "AppWs\\":"apphelpel/wsaction",
+      "core\\": "core/",
+      "app\\": "app/"
+    },  
     "files": [
       "core/helpel/helpel.php",
       "core/trait/trait.php"

@@ -2,6 +2,10 @@
 require 'vendor/autoload.php';
 require 'config.php';
 require 'migrate.php';
+/*
+require 'vendor/autoload.php';
+require 'config.php';
+require 'migrate.php';
 require 'seader.php';
 
 use Ratchet\Server\IoServer;
@@ -18,10 +22,6 @@ $server=IoServer::factory(
 );
 $server->run();
 
-
-
-
-/*
 require 'vendor/autoload.php';
 require 'setings.php';
 require 'migrate.php';
