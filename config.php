@@ -21,18 +21,18 @@ $css=array(
     'noassets'           =>false,
     'nopublic'           =>false,
     'url'                =>includeMedia(array('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')),
-    'assets'              =>includeMedia('assets/css'),
+    'assets'             =>includeMedia('assets/css'),
     'public'             =>includeMedia('public/css')
 );
 $config['defultController']=array(
-    'templete'         =>true,
-    'requiredUrl'      =>0,
-    'title'            =>$config['projectname'],
-    'templeteshema'    =>false,
-    'nojs'             =>false,
-    'js'               =>$js,
-    'nocss'            =>false,
-    'css'               =>$css
+    'templete'           =>true,
+    'requiredUrl'        =>0,
+    'title'              =>$config['projectname'],
+    'templeteshema'      =>false,
+    'nojs'               =>false,
+    'js'                 =>$js,
+    'nocss'              =>false,
+    'css'                =>$css
 );
 $config['homeControler']='home';
 // data base settings
@@ -41,6 +41,16 @@ $config['username']='root';
 $config['password']='';
 $config['dbname']='test';
 $config['port']='3306';
+$congig['dbCOLLATE']='utf8_polish_ci';
+
+$config['db']=array(
+    'host'               =>'localhost',
+    'username'           =>'root',
+    'title'              =>$config['projectname'],
+    'dbname'             =>'test',
+    'port'               =>3306,
+    'dbCOLLATE'          =>'utf8_polish_ci',
+);
 // auth 
 $passwordOptions = [
     'cost' => 12,
