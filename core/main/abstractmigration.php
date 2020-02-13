@@ -57,7 +57,7 @@ abstract class abstractmigration{
     public function run(){
         $this->scheme();
         $this->final_query();
-        echo $this->db->run_Query($this->query,'Executed query : '.$this->query);
+        echo $this->db->run_Query($this->query,'Executed query : '.$this->query,[]);
     }
     // add prenent run in extends 
     public function __call($method, $args) {

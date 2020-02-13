@@ -18,7 +18,7 @@ class mysqli implements dbInterface{
 		}
 	    return $ret;   
     }
-    function run_Query(string $sql,$mes=false){
+    function run_Query(string $sql,string $mes,array $array){
         $query=mysqli_query($this->com, $sql);
         if($query){
             return $mes;
