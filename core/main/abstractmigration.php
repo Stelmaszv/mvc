@@ -55,7 +55,7 @@ abstract class abstractmigration{
                     $this->query.=$el;
                 break;
             }
-            if($index < count($this->query_elemnts)-1 && $index>1){
+            if($index < $last-1 && $index!=0 && $index!=1 ){
                 $this->query.=$el;
                 $this->query.=',';
             }
@@ -66,20 +66,24 @@ abstract class abstractmigration{
     private function add_KEYS(){
         $this->query.=$this->faind_Primary_Key();
         $this->query.=$this->faind_FOREIGN_KEYS();
-        //$this->query.= ', FOREIGN KEY (erg2) REFERENCES users(id)';
         $this->query.= ')';
     }
     private function faind_FOREIGN_KEYS(){
         foreach($this->query_argumants as $el){
             foreach($el as $item){
-                if ($item=='PRIMARY KEY'){
-                    $name= $el['name'];
+                if (is_array($item)){
+                    if (isset($item['FK'])){
+                        $FOREIGN_KEY_VALUE= $item['FOREIGN_KEY_VALUE'];
+                        $FOREIGN_KEY_REFERENCES= $item['FOREIGN_KEY_REFERENCES'];
+                        $FOREIGN_KEY_REFERENCES_KEY= $item['FOREIGN_KEY_REFERENCES_KEY'];
+                    }
                 }
             }
         }
-        return ', PRIMARY KEY (`'.$name.'`)';
+        return ', FOREIGN KEY ('.$FOREIGN_KEY_VALUE.') REFERENCES '.$FOREIGN_KEY_REFERENCES.'('.$FOREIGN_KEY_REFERENCES_KEY.')';
     }
     private function faind_Primary_Key(){
+        $name='';
         foreach($this->query_argumants as $el){
             foreach($el as $item){
                 if ($item=='PRIMARY KEY'){
