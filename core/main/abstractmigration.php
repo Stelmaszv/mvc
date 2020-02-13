@@ -1,12 +1,16 @@
 <?php
 //CREATE TABLE IF NOT EXISTS users (id int(11) NOT NULL AUTO_INCREMENT,PRIMARY KEY (`id`),login varchar(50) COLLATE utf8_polish_ci NOT NULL,password varchar(250) COLLATE utf8_polish_ci NOT NULL,level varchar(50) COLLATE utf8_polish_ci NOT NULL,email varchar(12) COLLATE utf8_polish_ci NOT NULL)
 namespace core\main;
+use core\db\db;
 abstract class abstractmigration{
     private $query;
     private $query_elemnts=[];
     private $is_Table=false;
     private $objects=[];
-    function __construct(){ 
+    private $db;
+    function __construct(){
+        $this->db=new db(); 
+        $this->db=$this->db->get_Engin();
         $this->objects=['table'=>new table,'int'=>new intVal,'varchar'=>new varchar];
     }
     protected abstract function scheme();
@@ -49,11 +53,11 @@ abstract class abstractmigration{
             }
             $index++;
         }
-        echo $this->show_Query();
     }
     public function run(){
         $this->scheme();
         $this->final_query();
+        echo $this->db->run_Query($this->query,'Executed query : '.$this->query);
     }
     // add prenent run in extends 
     public function __call($method, $args) {

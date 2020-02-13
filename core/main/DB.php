@@ -7,7 +7,7 @@
         private $pdo;
         public function __construct(){
             try{
-                $this->pdo = new \PDO('mysql:host='.config['host'].';dbname='.config['dbname'].';port='.config['port'],config['username'],config['password']);
+                $this->pdo = new \PDO('mysql:host='.config['db']['host'].';dbname='.config['db']['dbname'].';port='.config['db']['port'],config['db']['username'],config['db']['password']);
                 $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
                 $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             }catch(PDOException $e){

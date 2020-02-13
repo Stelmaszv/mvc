@@ -36,13 +36,6 @@ $config['defultController']=array(
 );
 $config['homeControler']='home';
 // data base settings
-$config['host']='localhost';
-$config['username']='root';
-$config['password']='';
-$config['dbname']='test';
-$config['port']='3306';
-$congig['dbCOLLATE']='utf8_polish_ci';
-
 $config['db']=array(
     'host'               =>'localhost',
     'username'           =>'root',
@@ -50,6 +43,8 @@ $config['db']=array(
     'dbname'             =>'test',
     'port'               =>3306,
     'dbCOLLATE'          =>'utf8_polish_ci',
+    'dbengin'            =>'mysqli',
+    'password'           =>''
 );
 // auth 
 $passwordOptions = [
