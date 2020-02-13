@@ -30,14 +30,19 @@ abstract class abstractmigration{
         $index=0;
         $this->query='';
         foreach($this->query_elemnts as $el){
-            if($index === 1){
-                $this->query.='(';
-                $this->query.=$el;
-            }elseif($index === 0){
-                $this->query.=$el;
-            }elseif($index === count($this->query_elemnts)-1){
-                $this->query.=$el;
-                $this->query.=')';
+            $last=count($this->query_elemnts)-1;
+            switch($index){
+                case 1:
+                    $this->query.='(';
+                    $this->query.=$el;
+                break;
+                case 0:
+                    $this->query.=$el;
+                break;
+                case $last:
+                    $this->query.=$el;
+                    $this->query.=')';
+                break;
             }
             if($index < count($this->query_elemnts)-1 && $index>0){
                 $this->query.=',';
