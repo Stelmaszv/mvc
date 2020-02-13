@@ -22,6 +22,8 @@ class mysqli implements dbInterface{
         $query=mysqli_query($this->com, $sql);
         if($query){
             return $mes;
+        }else{
+            echo 'error';
         }
     } 
 }

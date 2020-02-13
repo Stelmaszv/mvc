@@ -1,10 +1,14 @@
 <?php
 //CREATE TABLE IF NOT EXISTS users (id int(11) NOT NULL AUTO_INCREMENT,PRIMARY KEY (`id`),login varchar(50) COLLATE utf8_polish_ci NOT NULL,password varchar(250) COLLATE utf8_polish_ci NOT NULL,level varchar(50) COLLATE utf8_polish_ci NOT NULL,email varchar(12) COLLATE utf8_polish_ci NOT NULL)
+// CREATE TABLE `test`.`querytest` ( `id` INT NOT NULL AUTO_INCREMENT , `mees` INT NOT NULL , `adress` INT NOT NULL , PRIMARY KEY (`id`), FOREIGN KEY (mees) REFERENCES users(id)) ENGINE = InnoDB
+// CREATE TABLE IF NOT EXISTS ge(wqg int(100) NOT NULL ,erg2 int(100) NULL ,erg varchar(100) COLLATE utf8_polish_ci NULL  PRIMARY KEY (`wqb`)
+//CREATE TABLE IF NOT EXISTS ge(wqg `int` NOT NULL AUTO_INCREMENT  ,erg2 `int` NULL   ,erg varchar(100) COLLATE utf8_polish_ci NULL , PRIMARY KEY (`wqg`), FOREIGN KEY (erg2) REFERENCES users(id))
 namespace core\main;
 use core\db\db;
 abstract class abstractmigration{
-    private $query;
+    private $query='';
     private $query_elemnts=[];
+    private $query_argumants=[];
     private $is_Table=false;
     private $objects=[];
     private $db;
@@ -19,8 +23,11 @@ abstract class abstractmigration{
             $this->query.=" (";
             $this->is_Table=True;
         }
-        $this->query=$this->objects[$object]->run($arguments);
+        if ($object != 'relation'){
+            $this->query=$this->objects[$object]->run($arguments);
+        }
         array_push($this->query_elemnts,$this->query);
+        array_push($this->query_argumants,$arguments);
     }
     protected function show_Query(){
         return $this->query;
@@ -30,7 +37,7 @@ abstract class abstractmigration{
             return true;
         }
     }
-    private function final_query(){
+    private function bild_Query(){
         $index=0;
         $this->query='';
         foreach($this->query_elemnts as $el){
@@ -39,24 +46,53 @@ abstract class abstractmigration{
                 case 1:
                     $this->query.='(';
                     $this->query.=$el;
+                    $this->query.=',';
                 break;
                 case 0:
                     $this->query.=$el;
                 break;
                 case $last:
                     $this->query.=$el;
-                    $this->query.=')';
                 break;
             }
-            if($index < count($this->query_elemnts)-1 && $index>0){
+            if($index < count($this->query_elemnts)-1 && $index>1){
+                $this->query.=$el;
                 $this->query.=',';
             }
             $index++;
         }
+        $this->add_KEYS();
+    }
+    private function add_KEYS(){
+        $this->query.=$this->faind_Primary_Key();
+        $this->query.=$this->faind_FOREIGN_KEYS();
+        //$this->query.= ', FOREIGN KEY (erg2) REFERENCES users(id)';
+        $this->query.= ')';
+    }
+    private function faind_FOREIGN_KEYS(){
+        foreach($this->query_argumants as $el){
+            foreach($el as $item){
+                if ($item=='PRIMARY KEY'){
+                    $name= $el['name'];
+                }
+            }
+        }
+        return ', PRIMARY KEY (`'.$name.'`)';
+    }
+    private function faind_Primary_Key(){
+        foreach($this->query_argumants as $el){
+            foreach($el as $item){
+                if ($item=='PRIMARY KEY'){
+                    $name= $el['name'];
+                }
+            }
+        }
+        return ', PRIMARY KEY (`'.$name.'`)';
     }
     public function run(){
         $this->scheme();
-        $this->final_query();
+        $this->bild_Query();
+        echo $this->query;
         echo $this->db->run_Query($this->query,'Executed query : '.$this->query,[]);
     }
     // add prenent run in extends 
@@ -81,19 +117,14 @@ abstract class abstractvalue{
             return 'AUTO_INCREMENT';
         }
     }
-    function if_PRIMARY_KEY(array $arguments){
-        if (isset($arguments['PRIMARY_KEY'])){
-            return "PRIMARY KEY (`".$arguments['name']."`)";
-        }
-    }
 }
 class intVal extends abstractvalue{
     function run(array $arguments){
-        return "".$arguments['name']." int(".$arguments['lenght'].") ".$this->setNull($arguments)." ".$this->if_AUTO_INCREMENT($arguments).",".$this->if_PRIMARY_KEY($arguments)."";
+        return "`".$arguments['name']."` int ".$this->setNull($arguments)." ".$this->if_AUTO_INCREMENT($arguments)."  ";
     }
 }
 class varchar extends abstractvalue{
     function run(array $arguments){
-        return "".$arguments['name']." varchar(".$arguments['lenght'].") COLLATE ".config['db']['dbCOLLATE']." ".$this->setNull($arguments)."";
+        return "`".$arguments['name']."` varchar(".$arguments['lenght'].") COLLATE ".config['db']['dbCOLLATE']." ".$this->setNull($arguments)." ";
     }
 }
