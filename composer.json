@@ -21,7 +21,7 @@
     },  
     "files": [
       "core/helpel/helpel.php",
-      "core/trait/trait.php"
+      "core/helpel/trait.php"
     ]
   },
   "require": {

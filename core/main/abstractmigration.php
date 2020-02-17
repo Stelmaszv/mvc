@@ -5,46 +5,62 @@
 //CREATE TABLE IF NOT EXISTS ge(wqg `int` NOT NULL AUTO_INCREMENT  ,erg2 `int` NULL   ,erg varchar(100) COLLATE utf8_polish_ci NULL , PRIMARY KEY (`wqg`), FOREIGN KEY (erg2) REFERENCES users(id))
 namespace core\main;
 use core\db\db;
+use core\interfaces\migration_Interface;
 abstract class abstractmigration{
     private $query='';
     private $query_elemnts=[];
     private $query_argumants=[];
     private $is_Table=false;
     private $objects=[];
-    private $db;
-    function __construct(){
+    private $query_Type;
+    public $item=0;
+    public $table;
+    public $db;
+    function __construct()
+    {
         $this->db=new db(); 
         $this->db=$this->db->get_Engin();
         $this->objects=['table'=>new table,'int'=>new intVal,'varchar'=>new varchar];
     }
-    protected abstract function scheme();
-    protected function add(string $object,array $arguments){
-        if ($this->check_Query() && !$this->is_Table ){
-            $this->query.=" (";
-            $this->is_Table=True;
-        }
-        if ($object != 'relation'){
-            $this->query=$this->objects[$object]->run($arguments);
-        }
-        array_push($this->query_elemnts,$this->query);
-        array_push($this->query_argumants,$arguments);
+    protected abstract function scheme() : void;
+    protected function set_Table(string $table): void
+    {
+        $this->table=$table;
+        $this->faind_Table();
     }
-    protected function show_Query(){
+    protected function add(string $object,array $argument) : void
+    {
+        $run=$this->query_Type;
+        array_push($this->query_argumants,$argument);
+        if ($object != 'relation'){
+            $run_Argument=[
+                'argument'=>$argument,
+                'object'=>$this,
+            ];
+            
+            $query=$this->objects[$object]->$run($run_Argument);
+            array_push($this->query_elemnts,$query);
+        }
+        $this->item=$this->item+1;
+    }
+    protected function show_Query(): string
+    {
         return $this->query;
     }
-    private function check_Query(){
+    private function check_Query(): bool
+    {
         if (strpos($this->query, 'TABLE')){
             return true;
         }
     }
-    private function bild_Query(){
+    private function bild_Create_Query(): void
+    {
         $index=0;
         $this->query='';
         foreach($this->query_elemnts as $el){
             $last=count($this->query_elemnts)-1;
             switch($index){
                 case 1:
-                    $this->query.='(';
                     $this->query.=$el;
                     $this->query.=',';
                 break;
@@ -63,12 +79,24 @@ abstract class abstractmigration{
         }
         $this->add_KEYS();
     }
-    private function add_KEYS(){
+    private function bild_Alter_Query(): void
+    {
+        $this->query='';
+        foreach($this->query_elemnts as $el){
+            $this->query.=$el;
+        }
+    }
+    private function add_KEYS(): void
+    {
         $this->query.=$this->faind_Primary_Key();
         $this->query.=$this->faind_FOREIGN_KEYS();
         $this->query.= ')';
     }
-    private function faind_FOREIGN_KEYS(){
+    private function faind_FOREIGN_KEYS(): string 
+    {
+        $FOREIGN_KEY_VALUE='';
+        $FOREIGN_KEY_REFERENCES='';
+        $FOREIGN_KEY_REFERENCES_KEY='';
         foreach($this->query_argumants as $el){
             foreach($el as $item){
                 if (is_array($item)){
@@ -82,7 +110,17 @@ abstract class abstractmigration{
         }
         return ', FOREIGN KEY ('.$FOREIGN_KEY_VALUE.') REFERENCES '.$FOREIGN_KEY_REFERENCES.'('.$FOREIGN_KEY_REFERENCES_KEY.')';
     }
-    private function faind_Primary_Key(){
+    private function faind_Table(): void
+    {
+        $loop = $this->db->faind_Table($this->table);
+        if($loop){
+            $this->query_Type = 'Alter';
+        }else{
+            $this->query_Type = 'Create';
+        }
+    }
+    private function faind_Primary_Key(): string
+    {
         $name='';
         foreach($this->query_argumants as $el){
             foreach($el as $item){
@@ -93,10 +131,12 @@ abstract class abstractmigration{
         }
         return ', PRIMARY KEY (`'.$name.'`)';
     }
-    public function run(){
+    public function run(): void
+    {
         $this->scheme();
-        $this->bild_Query();
-        echo $this->query;
+        $bild='bild_'.$this->query_Type.'_Query';
+        $this->$bild();
+        echo $this->show_Query();
         echo $this->db->run_Query($this->query,'Executed query : '.$this->query,[]);
     }
     // add prenent run in extends 
@@ -104,31 +144,66 @@ abstract class abstractmigration{
         return (new \ReflectionClass($this))->$method();
     }
 }
-class table{
-    function run(array $arguments){
-        return "CREATE TABLE IF NOT EXISTS ".$arguments['name'];
+class table implements migration_Interface{
+    function Create(array $fun_argument): string
+    {
+        return "CREATE TABLE IF NOT EXISTS ".$fun_argument['object']->table."(";
+    }
+    function Alter(array $arguments): string
+    {
+        return "";
     }
 }
-abstract class abstractvalue{
-    protected function setNull(array $null){
+abstract class abstract_Value implements migration_Interface{
+    protected $column='';
+    protected $db;
+    protected function setNull(array $null): string
+    {
         if (!isset($null['NULL'])){
             return 'NULL';
         }
         return $null['NULL'];
     }
-    protected function if_AUTO_INCREMENT(array $arguments){
+    protected function if_AUTO_INCREMENT(array $arguments): string
+    {
         if (isset($arguments['AUTO_INCREMENT'])){
             return 'AUTO_INCREMENT';
         }
     }
+    protected function return_field(array $fun_argument): array
+    {
+        $this->db=$fun_argument['object']->db;
+        $Colum = $this->db->return_Colum($fun_argument['object']->table,$fun_argument['argument']['name'],$fun_argument['object']->item);
+        return $Colum;
+    }
+
 }
-class intVal extends abstractvalue{
-    function run(array $arguments){
-        return "`".$arguments['name']."` int ".$this->setNull($arguments)." ".$this->if_AUTO_INCREMENT($arguments)."  ";
+class intVal extends abstract_Value{
+    protected $is_column=true;
+    function Create(array $fun_argument): string{
+        return "`".$fun_argument['argument']['name']."` int ".$this->setNull($fun_argument['argument'])." ".$this->if_AUTO_INCREMENT($fun_argument['argument'])."  ";
+    }
+    function Alter(array $fun_argument): string{
+        $name=$this->return_field($fun_argument);
+        if(count($name)){
+            $query = " ALTER TABLE `".$fun_argument['object']->table."` CHANGE `".$name['Field']."` `".$fun_argument['argument']['name']."` INT(".$fun_argument['argument']['lenght'].") ".$this->setNull($fun_argument['argument'])." ".$this->if_AUTO_INCREMENT($fun_argument['argument'])."; ";
+        }else{
+            $query = " ALTER TABLE `".$fun_argument['object']->table."` ADD `".$fun_argument['argument']['name']."` INT(".$fun_argument['argument']['lenght'].") ".$this->setNull($fun_argument['argument'])." ".$this->if_AUTO_INCREMENT($fun_argument['argument'])."; ";
+        }
+        return $query;
     }
 }
-class varchar extends abstractvalue{
-    function run(array $arguments){
-        return "`".$arguments['name']."` varchar(".$arguments['lenght'].") COLLATE ".config['db']['dbCOLLATE']." ".$this->setNull($arguments)." ";
+class varchar extends abstract_Value{
+    function Create(array $fun_argument): string{
+        return "`".$fun_argument['argument']['name']."` varchar(".$fun_argument['argument']['lenght'].") COLLATE ".config['db']['dbCOLLATE']." ".$this->setNull($fun_argument)." ";
+    }
+    function Alter(array $fun_argument): string{
+        $name=$this->return_field($fun_argument);
+        if(count($name)){
+            $query = " ALTER TABLE `".$fun_argument['object']->table."` CHANGE `".$name['Field']."` `".$fun_argument['argument']['name']."` VARCHAR(".$fun_argument['argument']['lenght'].") ".$this->setNull($fun_argument['argument'])."; ";
+        }else{
+            $query = " ALTER TABLE `".$fun_argument['object']->table."` ADD `".$fun_argument['argument']['name']."` VARCHAR(".$fun_argument['argument']['lenght'].") ".$this->setNull($fun_argument['argument'])."; ";
+        }
+        return $query;
     }
 }

@@ -15,7 +15,7 @@ class ComposerStaticInit38d4bf1de2ed9cea162490905c8ebf6e
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'a604e719e691584940a0559c547972df' => __DIR__ . '/../..' . '/core/helpel/helpel.php',
-        'c7051a90f592eef3bbd3c0a173e67f3a' => __DIR__ . '/../..' . '/core/trait/trait.php',
+        'fdbff89e68a9667e406c7f80a074f6be' => __DIR__ . '/../..' . '/core/helpel/trait.php',
     );
 
     public static $prefixLengthsPsr4 = array (
