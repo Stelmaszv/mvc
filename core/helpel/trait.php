@@ -1,14 +1,14 @@
 <?php
 trait trait_Db{
-    public function show_Columns(string $table):array
+    public function show_Columns(string $table) : array
     {
         return  $this->get_Query_Loop('SHOW COLUMNS FROM ' . $table);
      }
-     public function show_Tables():array
+     public function show_Tables() : array
      {
         return  $this->get_Query_Loop('SHOW TABLES');
      }
-     public function faind_Table(string $table):bool
+     public function faind_Table(string $table) : bool
      {
         $this->table_List=$this->show_Tables();
         $faind=false;
@@ -20,7 +20,7 @@ trait trait_Db{
         }
         return $faind;
     }
-    public function faind_Column(string $table,string $colum):bool
+    public function faind_Column(string $table,string $colum) : bool
     {
         $this->table_Column=$this->show_Columns($table);
         $faind=false;
@@ -31,7 +31,8 @@ trait trait_Db{
         }
         return $faind;
     }  
-    public function return_Colum(string $table,string $colum,int $item):array{
+    public function return_Colum(string $table,string $colum,int $item) : array
+    {
         $this->table_Column=$this->show_Columns($table);
         $faind=[];
         $index=0;
