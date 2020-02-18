@@ -13,6 +13,7 @@ abstract class abstractmigration{
     private $is_Table=false;
     private $objects=[];
     private $query_Type;
+    private $FOREIGN_KEY=false;
     public $item=-1;
     public $table;
     public $db;
@@ -74,10 +75,25 @@ abstract class abstractmigration{
             $this->query.=$el;
         }
     }
+    private function if_Isset_FOREIGN_KEYS() : void
+    {
+        foreach($this->query_argumants as $el){
+            foreach($el as $item){
+                if (is_array($item)){
+                    if (isset($item['FK'])){
+                        $this->FOREIGN_KEY=true;
+                    }
+                }
+            }
+        }
+    }
     private function add_KEYS() : void
     {
         $this->query.=$this->faind_Primary_Key();
-        $this->query.=$this->faind_FOREIGN_KEYS();
+        $this->if_Isset_FOREIGN_KEYS();
+        if($this->FOREIGN_KEY){
+            $this->query.=$this->faind_FOREIGN_KEYS();
+        }
         $this->query.= ')';
     }
     private function faind_FOREIGN_KEYS() : string 
