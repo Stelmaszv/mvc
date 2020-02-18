@@ -55,24 +55,12 @@ abstract class abstractmigration{
     }
     private function bild_Create_Query() : void
     {
-        $index=0;
         $this->query='';
+        $index=-1;
         foreach($this->query_elemnts as $el){
+            $this->query.=$el;
             $last=count($this->query_elemnts)-1;
-            switch($index){
-                case 1:
-                    $this->query.=$el;
-                    $this->query.=',';
-                break;
-                case 0:
-                    $this->query.=$el;
-                break;
-                case $last:
-                    $this->query.=$el;
-                break;
-            }
-            if($index < $last-1 && $index!=0 && $index!=1 ){
-                $this->query.=$el;
+            if ($index > -1 && $index < $last-1){
                 $this->query.=',';
             }
             $index++;
@@ -105,6 +93,7 @@ abstract class abstractmigration{
                         $FOREIGN_KEY_REFERENCES= $item['FOREIGN_KEY_REFERENCES'];
                         $FOREIGN_KEY_REFERENCES_KEY= $item['FOREIGN_KEY_REFERENCES_KEY'];
                     }
+                
                 }
             }
         }
@@ -176,11 +165,11 @@ abstract class abstract_Value implements migration_Interface{
         if (isset($arguments['AUTO_INCREMENT'])){
             return 'AUTO_INCREMENT';
         }
+        return '';
     }
     protected function return_Field(array $fun_argument) : array
     {
-        $Colum = $this->db->return_Colum($fun_argument['object']->table,$fun_argument['argument']['name'],$fun_argument['object']->item);
-        return $Colum;
+        return $this->db->return_Colum($fun_argument['object']->table,$fun_argument['argument']['name'],$fun_argument['object']->item);
     }
     protected function if_Available(array $fun_argument) : bool
     {
@@ -203,19 +192,13 @@ abstract class abstract_Value implements migration_Interface{
     {
         return $this->Alter_Shema($fun_argument);
     }
+    function Create(array $fun_argument): string{
+        return "`".$fun_argument['argument']['name']."` ".$this->type."(".$fun_argument['argument']['lenght'].") ".$this->setNull($fun_argument['argument'])." ".$this->if_AUTO_INCREMENT($fun_argument['argument'])."   ";
+    }
 }
 class intVal extends abstract_Value{
-    protected $is_column=true;
     protected $type='INT';
-    function Create(array $fun_argument) : string
-    {
-        return "`".$fun_argument['argument']['name']."` int ".$this->setNull($fun_argument['argument'])."   ";
-    }
 }
 class varchar extends abstract_Value{
     protected $type = 'VARCHAR';
-    function Create(array $fun_argument) : string
-    {
-        return "`".$fun_argument['argument']['name']."` varchar(".$fun_argument['argument']['lenght'].") COLLATE ".config['db']['dbCOLLATE']." ".$this->setNull($fun_argument)." ";
-    }
 }
