@@ -45,7 +45,7 @@ trait trait_Db{
         return $faind;
     }
 }
-trait singletonCreate {
+trait singleton_Create {
     static function create($data=false) {
         static $instances = array();
         $calledClass = get_called_class();

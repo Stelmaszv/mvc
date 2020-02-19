@@ -7,9 +7,12 @@ namespace core\main;
 use core\db\db;
 use core\interfaces\migration_Interface;
 abstract class abstractmigration{
+    protected $reset=false;
     private $query='';
     private $query_elemnts=[];
     private $query_argumants=[];
+    private $querys=['actual'=>[],'added'=>[]];
+    private $relations=[];
     private $is_Table=false;
     private $objects=[];
     private $query_Type;
@@ -17,12 +20,13 @@ abstract class abstractmigration{
     public $item=0;
     public $table;
     public $db;
-    use \class_Name;
+    use \class_Name,\singleton_Create;
     function __construct()
     {
         $this->db=new db(); 
         $this->db=$this->db->get_Engin();
         $this->objects=['table'=>new table($this->db),'int'=>new intVal($this->db),'varchar'=>new varchar($this->db)];
+        $this->relations=['one_to_many'=>new one_to_many,'one_to_one' => new one_to_one,'many_to_many' => new many_to_many];
         $this->set_Table($this->class_Name());
     }
     protected abstract function scheme() : void;
@@ -74,50 +78,72 @@ abstract class abstractmigration{
             $this->query.=$el;
         }
     }
-    private function if_Isset_FOREIGN_KEYS() : void
+    private function faind_value_in_Migration(string $value):array
     {
+        $found=[];
         foreach($this->query_argumants as $el){
             foreach($el as $item){
                 if (is_array($item)){
-                    if (isset($item['FK'])){
-                        $this->FOREIGN_KEY=true;
+                    if (isset($item[$value])){
+                        array_push($found,$item);
                     }
                 }
             }
         }
+        return $found;
+    }
+    private function if_Isset_FOREIGN_KEYS() : void
+    {
+        $item = $this->faind_value_in_Migration('FK');
+        if ($item){
+            $this->FOREIGN_KEY=true;
+        }
+    }
+    private function add_FOREIGN_KEYS() : string
+    {
+        $query='';
+        foreach($this->querys['actual'] as $el){
+            $query.=$el;
+        }
+        return $query;
     }
     private function add_KEYS() : void
     {
         $this->query.=$this->faind_Primary_Key();
         $this->if_Isset_FOREIGN_KEYS();
         if($this->FOREIGN_KEY){
-            $this->query.=$this->faind_FOREIGN_KEYS();
+            $this->Create_FOREIGN_KEYS();
+            $this->query.=$this->add_FOREIGN_KEYS();
         }
         $this->query.= ')';
     }
-    private function faind_FOREIGN_KEYS() : string 
+    private function update_Query(array $atrray) : void
     {
-        $FOREIGN_KEY_VALUE='';
-        $FOREIGN_KEY_REFERENCES='';
-        $FOREIGN_KEY_REFERENCES_KEY='';
-        foreach($this->query_argumants as $el){
-            foreach($el as $item){
-                if (is_array($item)){
-                    if (isset($item['FK'])){
-                        $FOREIGN_KEY_VALUE= $item['FOREIGN_KEY_VALUE'];
-                        $FOREIGN_KEY_REFERENCES= $item['FOREIGN_KEY_REFERENCES'];
-                        $FOREIGN_KEY_REFERENCES_KEY= $item['FOREIGN_KEY_REFERENCES_KEY'];
-                    }
-                
-                }
-            }
+        foreach($atrray['actual'] as $query){
+            array_push($this->querys['actual'],$query);
         }
-        return ', FOREIGN KEY ('.$FOREIGN_KEY_VALUE.') REFERENCES '.$FOREIGN_KEY_REFERENCES.'('.$FOREIGN_KEY_REFERENCES_KEY.')';
+        foreach($atrray['added'] as $query){
+            array_push($this->querys['added'],$query);
+        }
+    }
+    private function Create_FOREIGN_KEYS() : void
+    {
+        $items = $this->faind_value_in_Migration('FK');
+        foreach($items as $item){
+            $add_to_Query=$this->relations[$item['relation_Type']]->run($item,$this->table);
+            $this->update_Query($add_to_Query);
+        }
     }
     private function faind_Table() : void
     {
         $loop = $this->db->faind_Table($this->table);
         if($loop){
+            if ($this->reset){
+                $this->query="DROP TABLE `".$this->table."`";
+                echo $this->db->run_Query($this->query,'Executed query : '.$this->query,[]);
+                $instance=self::create();
+                $instance->run();
+            }
             $this->query_Type = 'Alter';
         }else{
             $this->query_Type = 'Create';
@@ -135,6 +161,14 @@ abstract class abstractmigration{
         }
         return ', PRIMARY KEY (`'.$name.'`)';
     }
+    private function execute_relations():void
+    {
+        foreach($this->querys['added'] as $el){
+            echo $el;
+            $this->db->run_Query($el,'Executed query : '.$el,[]);
+
+        }
+    }
     public function run() : void
     {
         $this->scheme();
@@ -143,6 +177,9 @@ abstract class abstractmigration{
         echo $this->show_Query();
         if(strlen($this->query)){
             echo $this->db->run_Query($this->query,'Executed query : '.$this->query,[]);
+            if($this->FOREIGN_KEY){
+                $this->execute_relations();
+            }
         }
     }
     // add prenent run in extends 
@@ -207,7 +244,8 @@ abstract class abstract_Value implements migration_Interface{
     {
         return $this->Alter_Shema($fun_argument);
     }
-    function Create(array $fun_argument): string{
+    function Create(array $fun_argument): string
+    {
         return "`".$fun_argument['argument']['name']."` ".$this->type."(".$fun_argument['argument']['lenght'].") ".$this->setNull($fun_argument['argument'])." ".$this->if_AUTO_INCREMENT($fun_argument['argument'])."   ";
     }
 }
@@ -216,4 +254,64 @@ class intVal extends abstract_Value{
 }
 class varchar extends abstract_Value{
     protected $type = 'VARCHAR';
+}
+abstract class relation{
+    protected $db;
+    protected $querys=['actual'=>[],'added'=>[]];
+    function FOREIGN_KEY(array $fun_argument): string
+    {
+        $FOREIGN_KEY_VALUE=$fun_argument['FOREIGN_KEY_VALUE'];
+        $FOREIGN_KEY_REFERENCES=$fun_argument['FOREIGN_KEY_REFERENCES'];
+        $FOREIGN_KEY_REFERENCES_KEY=$fun_argument['FOREIGN_KEY_REFERENCES_KEY'];
+        return ', FOREIGN KEY ('.$FOREIGN_KEY_VALUE.') REFERENCES '.$FOREIGN_KEY_REFERENCES.'('.$FOREIGN_KEY_REFERENCES_KEY.')';
+    }
+}
+class one_to_many extends relation{
+    function run(array $fun_argument,string $table): array
+    {
+        array_push($this->querys['actual'],$this->FOREIGN_KEY($fun_argument));
+        return $this->querys;
+    }
+}
+class one_to_one extends relation{
+    function run(array $fun_argument,string $table): array
+    {
+        $this->one_to_one($fun_argument,$table);
+        array_push($this->querys['actual'],$this->FOREIGN_KEY($fun_argument));
+        return $this->querys;
+    }
+    private function one_to_one(array $fun_argument,string $table):void
+    {
+        $field_Name=$table;
+        $query="ALTER TABLE `".$fun_argument['FOREIGN_KEY_REFERENCES']."` ADD `".$field_Name."` INT NOT NULL;";
+        $query2="ALTER TABLE `".$fun_argument['FOREIGN_KEY_REFERENCES']."` ADD FOREIGN KEY (".$field_Name.") REFERENCES `".$table."`(".$fun_argument['FOREIGN_KEY_VALUE'].");";
+        array_push($this->querys['added'],$query);
+        array_push($this->querys['added'],$query2);
+    }
+}
+
+class many_to_many extends relation{
+    function run(array $fun_argument,string $table): array
+    {
+        $this->many_to_many($fun_argument,$table);
+        return $this->querys;
+    }
+    private function many_to_many(array $fun_argument,string $table):void
+    {
+        $relation_name="relaton".$table."".$fun_argument['FOREIGN_KEY_REFERENCES'];
+        $relation_one_name="relaton".$table;
+        $relation_Two_name="relaton".$fun_argument['FOREIGN_KEY_REFERENCES'];
+        $query="CREATE TABLE ".$relation_name."(";
+        $query.="id int NOT NULL AUTO_INCREMENT PRIMARY KEY";
+        $query.=")";
+        array_push($this->querys['added'],$query);
+        $query="ALTER TABLE `".$relation_name."` ADD `".$relation_one_name."` INT NULL;";
+        $query2="ALTER TABLE `".$relation_name."` ADD `".$relation_Two_name."` INT NULL;";
+        array_push($this->querys['added'],$query);
+        array_push($this->querys['added'],$query2);
+        $query3="ALTER TABLE `".$relation_name."` ADD FOREIGN KEY (".$relation_one_name.") REFERENCES `".$table."`(id);";
+        $query4="ALTER TABLE `".$relation_name."` ADD FOREIGN KEY (".$relation_Two_name.") REFERENCES `".$fun_argument['FOREIGN_KEY_REFERENCES']."`(id);";
+        array_push($this->querys['added'],$query3);
+        array_push($this->querys['added'],$query4);
+    }
 }
