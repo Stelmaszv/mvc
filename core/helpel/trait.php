@@ -69,8 +69,8 @@ trait faindTableT {
     }
 }
 */
-trait className{
-    function classname(){
+trait class_Name{
+    function class_Name(){
         return (new \ReflectionClass($this))->getShortName();
     }
 }

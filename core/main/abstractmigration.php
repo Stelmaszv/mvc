@@ -14,20 +14,25 @@ abstract class abstractmigration{
     private $objects=[];
     private $query_Type;
     private $FOREIGN_KEY=false;
-    public $item=-1;
+    public $item=0;
     public $table;
     public $db;
+    use \class_Name;
     function __construct()
     {
         $this->db=new db(); 
         $this->db=$this->db->get_Engin();
         $this->objects=['table'=>new table($this->db),'int'=>new intVal($this->db),'varchar'=>new varchar($this->db)];
+        $this->set_Table($this->class_Name());
     }
     protected abstract function scheme() : void;
-    protected function set_Table(string $table) : void
+    private function set_Table(string $table) : void
     {
         $this->table=$table;
         $this->faind_Table();
+        $run=$this->query_Type;
+        $query=$this->objects['table']->$run(['table'=>$this->table]);
+        array_push($this->query_elemnts,$query);
     }
     protected function add(string $object,array $argument) : void
     {
@@ -47,12 +52,6 @@ abstract class abstractmigration{
     protected function show_Query() : string
     {
         return $this->query;
-    }
-    private function check_Query() : bool
-    {
-        if (strpos($this->query, 'TABLE')){
-            return true;
-        }
     }
     private function bild_Create_Query() : void
     {
@@ -154,7 +153,7 @@ abstract class abstractmigration{
 class table implements migration_Interface{
     function Create(array $fun_argument) : string
     {
-        return "CREATE TABLE IF NOT EXISTS ".$fun_argument['object']->table."(";
+        return "CREATE TABLE IF NOT EXISTS ".$fun_argument['table']."(";
     }
     function Alter(array $arguments) : string
     {
