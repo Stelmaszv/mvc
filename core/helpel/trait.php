@@ -1,4 +1,25 @@
 <?php
+trait array_manipulation{
+    public function faind_key_in_array(array $array,string $key) : string
+    {
+        if(isset($array[$key])){
+            return $key;
+        }
+        exit('Key '.$key.' has not faind in array '.$this->return_array_as_string($array));
+    }
+    public function return_array_as_string(array $array) : string {
+        $items='';
+        foreach($array as $el => $key){
+            $items.=' '.$el.' ';
+        }
+        return $items;
+    }
+    public function update_array(array $getArray,array $add_to_array){
+        foreach($getArray as $query){
+            array_push($add_to_array,$query);
+        }
+    }
+}
 trait trait_Db{
     public function show_Columns(string $table) : array
     {

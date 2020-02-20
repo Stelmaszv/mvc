@@ -20,7 +20,7 @@ abstract class abstractmigration{
     public $item=0;
     public $table;
     public $db;
-    use \class_Name,\singleton_Create;
+    use \class_Name,\singleton_Create,\array_manipulation;
     function __construct()
     {
         $this->db=new db(); 
@@ -35,7 +35,7 @@ abstract class abstractmigration{
         $this->table=$table;
         $this->faind_Table();
         $run=$this->query_Type;
-        $query=$this->objects['table']->$run(['table'=>$this->table]);
+        $query=$this->objects[$this->faind_key_in_array($this->objects,'table')]->$run(['table'=>$this->table]);
         array_push($this->query_elemnts,$query);
     }
     protected function add(string $object,array $argument) : void
@@ -48,7 +48,7 @@ abstract class abstractmigration{
                 'object'=>$this,
             ];
             
-            $query=$this->objects[$object]->$run($run_Argument);
+            $query=$this->objects[$this->faind_key_in_array($this->objects,$object)]->$run($run_Argument);
             array_push($this->query_elemnts,$query);
         }
         $this->item=$this->item+1;
@@ -99,13 +99,9 @@ abstract class abstractmigration{
             $this->FOREIGN_KEY=true;
         }
     }
-    private function add_FOREIGN_KEYS() : string
+    private function add_FOREIGN_KEYS(array $array) : string
     {
-        $query='';
-        foreach($this->querys['actual'] as $el){
-            $query.=$el;
-        }
-        return $query;
+        return $this->return_array_as_string($array);
     }
     private function add_KEYS() : void
     {
@@ -113,7 +109,7 @@ abstract class abstractmigration{
         $this->if_Isset_FOREIGN_KEYS();
         if($this->FOREIGN_KEY){
             $this->Create_FOREIGN_KEYS();
-            $this->query.=$this->add_FOREIGN_KEYS();
+            $this->query.=$this->add_FOREIGN_KEYS($this->querys['actual']);
         }
         $this->query.= ')';
     }
@@ -130,7 +126,7 @@ abstract class abstractmigration{
     {
         $items = $this->faind_value_in_Migration('FK');
         foreach($items as $item){
-            $add_to_Query=$this->relations[$item['relation_Type']]->run($item,$this->table);
+            $add_to_Query=$this->relations[$this->faind_key_in_array($this->relations,$item['relation_Type'])]->run($item,$this->table);
             $this->update_Query($add_to_Query);
         }
     }
