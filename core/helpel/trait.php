@@ -1,4 +1,26 @@
 <?php
+use core\exception\catch_exception;
+trait array_manipulation{
+    public function if_isset_in_array(array $array, string $string) : string 
+    {
+        if(isset($array[$string])){
+            return $string;
+        }else{
+            $array_in_string=$this->return_array_in_string($array);
+            $mes='key '.$string.' not exist in array ('.$array_in_string.')';
+            catch_exception::throw_New($mes,true);
+        }
+        return '';
+    }
+    public function return_array_in_string(array $array) : string
+    {
+        $array_in_string='';
+        foreach($array as $item => $value){
+            $array_in_string.=' '.$item.' ';
+        }
+        return $array_in_string;
+    }
+}
 trait trait_Db{
     public function show_Columns(string $table) : array
     {
@@ -55,20 +77,6 @@ trait singleton_Create {
         return $instances[$calledClass];
     }
 }
-/*
-trait faindTableT {
-    function faindTable($table){
-        $sql= new DB();
-        $tableList=$sql->SqlloopAll('SHOW tables');
-        foreach ($tableList as $el){
-            if($el['Tables_in_test']==$table){
-                return true;
-            }
-        }
-        return false;
-    }
-}
-*/
 trait class_Name{
     function class_Name(){
         return (new \ReflectionClass($this))->getShortName();

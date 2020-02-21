@@ -2,13 +2,8 @@
 namespace core\main\migration\abstracts;
 use core\db\set_db;
 use core\helpel\clas\text_in_consol;
-use core\main\migration\columns\table;
-use core\main\migration\columns\intVal;
-use core\main\migration\columns\varchar;
-use core\main\migration\relations\one_to_one;
-use core\main\migration\relations\one_to_many;
-use core\main\migration\relations\many_to_many;
-//use core\interfaces\migration_Interface;
+use core\main\migration\columns\{table,intVal,varchar};
+use core\main\migration\relations\{one_to_one,one_to_many,many_to_many};
 abstract class abstract_migration{
     protected $reset=false;
     private $query='';
@@ -23,7 +18,7 @@ abstract class abstract_migration{
     public $item=0;
     public $table;
     public $db;
-    use \class_Name, \singleton_Create;
+    use \class_Name, \singleton_Create,\array_manipulation;
     function __construct()
     {
         $this->db=new set_db(); 
@@ -38,7 +33,7 @@ abstract class abstract_migration{
         $this->table=$table;
         $this->faind_Table();
         $run=$this->query_Type;
-        $query=$this->objects['table']->$run(['table'=>$this->table]);
+        $query=$this->objects[$this->if_isset_in_array($this->objects,'table')]->$run(['table'=>$this->table]);
         array_push($this->query_elemnts,$query);
     }
     protected function add(string $object,array $argument) : void
@@ -51,7 +46,7 @@ abstract class abstract_migration{
                 'object'=>$this,
             ];
             
-            $query=$this->objects[$object]->$run($run_Argument);
+            $query=$this->objects[$this->if_isset_in_array($this->objects,$object)]->$run($run_Argument);
             array_push($this->query_elemnts,$query);
         }
         $this->item=$this->item+1;
@@ -133,7 +128,7 @@ abstract class abstract_migration{
     {
         $items = $this->faind_value_in_Migration('FK');
         foreach($items as $item){
-            $add_to_Query=$this->relations[$item['relation_Type']]->run($item,$this->table);
+            $add_to_Query=$this->relations[$this->if_isset_in_array($this->relations,$item['relation_Type'])]->run($item,$this->table);
             $this->update_Query($add_to_Query);
         }
     }
@@ -187,6 +182,6 @@ abstract class abstract_migration{
     }
     // add prenent run in extends 
     public function __call($method, $args) {
-        return (new \ReflectionClass($this))->$method();
+       return (new \ReflectionClass($this))->$method();
     }
 }

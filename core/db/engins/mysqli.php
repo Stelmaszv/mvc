@@ -24,7 +24,7 @@ class mysqli implements db_interface{
         if($query){
             return $mes;
         }else{
-            return 'error';
+            return 'error in query : '.$sql;
         }
     } 
     private function PrepearQuery($sql=false){

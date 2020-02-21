@@ -21,8 +21,8 @@ class many_to_many extends abstract_relation{
         array_push($this->querys['added'],$query);
         array_push($this->querys['added'],$query2);
         $query3="ALTER TABLE `".$relation_name."` ADD FOREIGN KEY (".$relation_one_name.") REFERENCES `".$table."`(id);";
-        //$query4="ALTER TABLE `".$relation_name."` ADD FOREIGN KEY (".$relation_Two_name.") REFERENCES `".$fun_argument['FOREIGN_KEY_REFERENCES']."`(id);";
+        $query4="ALTER TABLE `".$relation_name."` ADD FOREIGN KEY (".$relation_Two_name.") REFERENCES `".$fun_argument['FOREIGN_KEY_REFERENCES']."`(id);";
         array_push($this->querys['added'],$query3);
-        //array_push($this->querys['added'],$query4);
+        array_push($this->querys['added'],$query4);
     }
 }

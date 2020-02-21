@@ -43,7 +43,7 @@ $config['db']=array(
     'dbname'             => 'test',
     'port'               => 3306,
     'dbCOLLATE'          => 'utf8_polish_ci',
-    'dbengin'            => 'pdo',
+    'dbengin'            => 'mysqli',
     'password'           => ''
 );
 // auth 
