@@ -71,18 +71,15 @@ abstract class abstract_migration{
     }
     private function bild_Alter_Query() : void
     {
-        $this->query='';
-        foreach($this->query_elemnts as $el){
-            $this->query.=$el;
-        }
+        $this->query=$this->return_array_in_string($this->query_elemnts);
     }
-    private function faind_value_in_Migration(string $value):array
+    private function faind_value_in_Migration(string $key):array
     {
         $found=[];
         foreach($this->query_argumants as $el){
             foreach($el as $item){
                 if (is_array($item)){
-                    if (isset($item[$value])){
+                    if (isset($item[$key])){
                         array_push($found,$item);
                     }
                 }
@@ -99,11 +96,7 @@ abstract class abstract_migration{
     }
     private function add_FOREIGN_KEYS() : string
     {
-        $query='';
-        foreach($this->querys['actual'] as $el){
-            $query.=$el;
-        }
-        return $query;
+        return $this->return_array_in_string($this->querys['actual']);
     }
     private function add_KEYS() : void
     {
@@ -115,14 +108,10 @@ abstract class abstract_migration{
         }
         $this->query.= ')';
     }
-    private function update_Query(array $atrray) : void
+    private function update_Query(array $array) : void
     {
-        foreach($atrray['actual'] as $query){
-            array_push($this->querys['actual'],$query);
-        }
-        foreach($atrray['added'] as $query){
-            array_push($this->querys['added'],$query);
-        }
+        $this->querys['actual']=$this->add_new_values_to_array($this->querys['actual'],$array['actual']);
+        $this->querys['added']=$this->add_new_values_to_array($this->querys['actual'],$array['added']);
     }
     private function Create_FOREIGN_KEYS() : void
     {

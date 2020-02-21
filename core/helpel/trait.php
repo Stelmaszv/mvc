@@ -1,14 +1,14 @@
 <?php
 use core\exception\catch_exception;
 trait array_manipulation{
-    public function if_isset_in_array(array $array, string $string) : string 
+    public function if_isset_in_array(array $array, string $key) : string 
     {
-        if(isset($array[$string])){
-            return $string;
+        if(isset($array[$key])){
+            return $key;
         }else{
             $array_in_string=$this->return_array_in_string($array);
-            $mes='key '.$string.' not exist in array ('.$array_in_string.')';
-            catch_exception::throw_New($mes,true);
+            $message='key '.$key.' not exist in array ('.$array_in_string.')';
+            catch_exception::throw_New($message,true);
         }
         return '';
     }
@@ -19,6 +19,13 @@ trait array_manipulation{
             $array_in_string.=' '.$item.' ';
         }
         return $array_in_string;
+    }
+    public function add_new_values_to_array(array $add,array $get): array
+    {
+        foreach($get as $query){
+            array_push($add,$query);
+        }
+        return $add;
     }
 }
 trait trait_Db{
