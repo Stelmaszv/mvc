@@ -1,7 +1,7 @@
 <?php
 namespace core\db\engins;
-use core\interfaces\dbInterface;
-class mysqli implements dbInterface{
+use core\db\interfaces\db_interface;
+class mysqli implements db_interface{
     use \trait_Db;
     function __construct($sql=false){
         try {
@@ -11,7 +11,7 @@ class mysqli implements dbInterface{
             echo $exception->getMessage();
         }
     }
-    function get_Query_Loop(string $sql){
+    function get_Query_Loop(string $sql,$array=[]) : array{
         $ret=array();
 		$result = mysqli_query($this->com,$sql);
 		while($text = mysqli_fetch_assoc($result)){
@@ -19,12 +19,12 @@ class mysqli implements dbInterface{
 		}
         return $ret;
     }
-    function run_Query(string $sql,string $mes,array $array){
+    function run_Query(string $sql,string $mes,$array=[]) : string{
         $query=mysqli_query($this->com, $sql);
         if($query){
             return $mes;
         }else{
-            echo 'error';
+            return 'error';
         }
     } 
     private function PrepearQuery($sql=false){

@@ -1,7 +1,8 @@
 <?php
 namespace core\db\engins;
-use core\interfaces\dbInterface;
-class pdo implements dbInterface{
+use core\db\interfaces\db_interface;
+class pdo implements db_interface{
+    use \trait_Db;
     public function __construct(){
         try{
             $this->pdo = new \PDO('mysql:host='.config['db']['host'].';dbname='.config['db']['dbname'].';port='.config['db']['port'],config['db']['username'],config['db']['password']);
@@ -12,7 +13,7 @@ class pdo implements dbInterface{
             
         }
     }
-    function get_Query_Loop(string $sql){
+    function get_Query_Loop(string $sql,$array=[]) : array{
         $query=$this->pdo->prepare($sql);
         $query->execute($array);
         $array=[];
@@ -21,7 +22,7 @@ class pdo implements dbInterface{
         }
         return $array;  
     }
-    function run_Query(string $sql,string $mes,array $array){
+    function run_Query(string $sql,string $mes,$array=[]): string{
         $query=$this->pdo->prepare($sql);
         $query=$query->execute($array);
         if ($query){

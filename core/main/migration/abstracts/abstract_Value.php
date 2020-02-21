@@ -1,11 +1,12 @@
 <?php
 namespace core\main\migration\abstracts;
+use core\db\interfaces\db_interface as DB;
 abstract class abstract_Value{
     protected $column='';
     protected $db;
     protected $change;
     protected $type;
-    function __construct(object $db){
+    function __construct(DB $db){
         $this->db=$db;
     }
     protected function setNull(array $null) : string

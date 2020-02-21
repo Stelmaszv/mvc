@@ -9,9 +9,9 @@ class many_to_many extends abstract_relation{
     }
     private function many_to_many(array $fun_argument,string $table):void
     {
-        $relation_name="relaton".$table."".$fun_argument['FOREIGN_KEY_REFERENCES'];
-        $relation_one_name="relaton".$table;
-        $relation_Two_name="relaton".$fun_argument['FOREIGN_KEY_REFERENCES'];
+        $relation_name="many_to_many_".$table."_".$fun_argument['FOREIGN_KEY_REFERENCES'];
+        $relation_one_name="relaton_".$table;
+        $relation_Two_name="relaton_".$fun_argument['FOREIGN_KEY_REFERENCES'];
         $query="CREATE TABLE ".$relation_name."(";
         $query.="id int NOT NULL AUTO_INCREMENT PRIMARY KEY";
         $query.=")";
@@ -21,8 +21,8 @@ class many_to_many extends abstract_relation{
         array_push($this->querys['added'],$query);
         array_push($this->querys['added'],$query2);
         $query3="ALTER TABLE `".$relation_name."` ADD FOREIGN KEY (".$relation_one_name.") REFERENCES `".$table."`(id);";
-        $query4="ALTER TABLE `".$relation_name."` ADD FOREIGN KEY (".$relation_Two_name.") REFERENCES `".$fun_argument['FOREIGN_KEY_REFERENCES']."`(id);";
+        //$query4="ALTER TABLE `".$relation_name."` ADD FOREIGN KEY (".$relation_Two_name.") REFERENCES `".$fun_argument['FOREIGN_KEY_REFERENCES']."`(id);";
         array_push($this->querys['added'],$query3);
-        array_push($this->querys['added'],$query4);
+        //array_push($this->querys['added'],$query4);
     }
 }

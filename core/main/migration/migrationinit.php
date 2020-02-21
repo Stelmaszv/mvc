@@ -1,5 +1,5 @@
 <?php
-namespace core\main;
+namespace core\main\migration;
 class migrationinit{
     function __construct(array $migrations){ 
         $this->migrations=$migrations;

@@ -1,12 +1,13 @@
 <?php
 namespace core\main\migration\abstracts;
 use core\db\set_db;
+use core\helpel\clas\text_in_consol;
 use core\main\migration\columns\table;
 use core\main\migration\columns\intVal;
 use core\main\migration\columns\varchar;
+use core\main\migration\relations\one_to_one;
 use core\main\migration\relations\one_to_many;
 use core\main\migration\relations\many_to_many;
-use core\main\migration\relations\one_to_one;
 //use core\interfaces\migration_Interface;
 abstract class abstract_migration{
     protected $reset=false;
@@ -142,7 +143,8 @@ abstract class abstract_migration{
         if($loop){
             if ($this->reset){
                 $this->query="DROP TABLE `".$this->table."`";
-                echo $this->db->run_Query($this->query,'Executed query : '.$this->query,[]);
+                $query=$this->db->run_Query($this->query,'Executed query : '.$this->query,[]);
+                text_in_consol::consol_log($query);
                 $instance=self::create();
                 $instance->run();
             }
@@ -166,9 +168,8 @@ abstract class abstract_migration{
     private function execute_relations():void
     {
         foreach($this->querys['added'] as $el){
-            echo $el;
-            $this->db->run_Query($el,'Executed query : '.$el,[]);
-
+            $query=$this->db->run_Query($el,'Executed query : '.$el,[]);
+            text_in_consol::consol_log($query);
         }
     }
     public function run() : void
@@ -176,9 +177,9 @@ abstract class abstract_migration{
         $this->scheme();
         $bild='bild_'.$this->query_Type.'_Query';
         $this->$bild();
-        echo $this->show_Query();
         if(strlen($this->query)){
-            echo $this->db->run_Query($this->query,'Executed query : '.$this->query,[]);
+            $query=$this->db->run_Query($this->query,'Executed query : '.$this->query,[]);
+            text_in_consol::consol_log($query);
             if($this->FOREIGN_KEY){
                 $this->execute_relations();
             }
