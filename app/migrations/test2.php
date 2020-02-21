@@ -1,8 +1,8 @@
 <?php
 namespace app\migrations;
-use core\main\abstractmigration;
+use core\main\migration\abstracts\abstract_migration;
 use core\db\db;
-class test2 extends abstractmigration{
+class test2 extends abstract_migration{
     function scheme() : void
     {
         $this->add('int',['name'=>'id','lenght'=>100,'NULL'=>'NOT NULL','AUTO_INCREMENT'=>true,'PK'=>'PRIMARY_KEY']);

@@ -65,7 +65,7 @@ if(isset($_GET['url'])){
 }else{
     $url=false;
 }
-define('controller',$url[0]);
+//define('controller',$url[0]);
 if(isset($url[1])){
     define('method',$url[1]);
 }
