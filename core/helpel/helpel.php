@@ -1,26 +1,8 @@
 <?php
-function vdab($array){
+function vd($array){
     echo '<pre>';
     echo var_dump($array);
     echo '</pre>';
-}
-function headerToUrl(string $url){
-    header('Location: '.$url);
-}
-function generatecontrolerLink(string $name,$method=false){
-    if(!$method){
-        $method='main';
-    }
-    return config['projectUrl'].$name.'/'.$method.'/';
-}
-function setconrollerShema(string $name){
-    return 'app/controlers/'.$name.'.htm';
-}
-function procentCount(int $numbers,int $number){
-    $all=array_sum($numbers);
-    $elment=$numbers[$number];
-    $prcent=$elment*100/$all;
-    return $prcent;
 }
 function includeMedia($dir){
     if(!is_array($dir)){
@@ -47,3 +29,24 @@ function includeMedia($dir){
        return  $items;
     }
 }
+/*
+function headerToUrl(string $url){
+    header('Location: '.$url);
+}
+function generatecontrolerLink(string $name,$method=false){
+    if(!$method){
+        $method='main';
+    }
+    return config['projectUrl'].$name.'/'.$method.'/';
+}
+function setconrollerShema(string $name){
+    return 'app/controlers/'.$name.'.htm';
+}
+function procentCount(int $numbers,int $number){
+    $all=array_sum($numbers);
+    $elment=$numbers[$number];
+    $prcent=$elment*100/$all;
+    return $prcent;
+}
+
+*/
