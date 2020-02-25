@@ -6,8 +6,10 @@ use core\exception\catch_exception;
 
 class route_validator{
     private static $Items=[];
-    public static function route_valid(string $url,string $name,abstract_controller $abstract_controller,string $method,$list_of_contollers){
-        self::uniqName($name,$list_of_contollers);
+    public static function route_valid(string $url,string $name,abstract_controller $abstract_controller,string $method,$list_of_contollers): void
+    {
+        self::uniq_Name($name,$list_of_contollers);
+        self::method_Exist($method,$abstract_controller);
     }
     public static function url_valid(array $urls,array $routs ) : array
     {
@@ -39,7 +41,7 @@ class route_validator{
             ]);
         }
     }
-    private static function uniqName(string $name,array $list_of_contollers): void
+    private static function uniq_Name(string $name,array $list_of_contollers) : void
     {
         $foud=false;
         foreach($list_of_contollers as $controller){
@@ -47,6 +49,12 @@ class route_validator{
                 $foud=true;
                 catch_exception::throw_New('controller with name '.$name.' arlerdy exixt ',true);
             }
+        }
+    }
+    private static function method_Exist(string $method,abstract_controller $abstract_controller) : void
+    {
+        if(!method_exists($abstract_controller, $method) && !empty($method)){
+            catch_exception::throw_New('Method "'.$method.'" not foud in controller "'.$abstract_controller->class_Name().'" ',true);
         }
     }
 }

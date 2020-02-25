@@ -1,5 +1,6 @@
 <?php
 namespace core\main\controller;
 abstract class abstract_controller{
-    abstract function main();
+    use \class_Name;
+    abstract function main(array $request);
 }

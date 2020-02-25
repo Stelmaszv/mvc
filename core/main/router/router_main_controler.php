@@ -6,13 +6,14 @@ class router_main_controler{
     function __construct(array $route_list){
         $this->route_list=$route_list;
     }
-    public function run_Controller(){
+    public function run_Controller() :  void
+    {
         $controller=$this->faind_Contrroller();
         if(empty($controller['medhod'])){
-            $controller['conroler']->main();
+            $controller['conroler']->main($controller['url']);
         }else{
             $medhod=$controller['medhod'];
-            $controller['conroler']->$medhod();
+            $controller['conroler']->$medhod($controller['url']);
         }
     }
     private function faind_Contrroller() : array
@@ -60,7 +61,7 @@ class router_main_controler{
             $NewController['url']=$url;
             return $NewController;
         }else{
-            catch_exception::throw_New('controller not foud',true);
+            catch_exception::throw_New('controller  not foud',true);
         }
     }
 }
