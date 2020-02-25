@@ -1,5 +1,6 @@
 <?php
 namespace core\main\router;
+use core\exception\catch_exception;
 class router_main_controler{
     private $route_list;
     function __construct(array $route_list){
@@ -25,7 +26,6 @@ class router_main_controler{
                     if(preg_match('/{{int:[a-z]*}}$/',$rout_incontroler) || preg_match('/{{string:[a-z]*}}$/',$rout_incontroler)){
                         array_push($in_controler['varables'],$rout_incontroler);
                     }else{
-                        
                         array_push($in_controler['normal'],$rout_incontroler);
                     }
                 }
@@ -55,9 +55,12 @@ class router_main_controler{
             }
         }
         if(isset($controller)){
-            return $this->route_list[$controller];
+            $NewController=$this->route_list[$controller];
+            $url=route_validator::url_valid(url,$NewController['url']);
+            $NewController['url']=$url;
+            return $NewController;
         }else{
-            die('<br> controller not foud');
+            catch_exception::throw_New('controller not foud',true);
         }
     }
 }

@@ -2,13 +2,15 @@
 namespace core\main\router;
 use core\helpel\validator\ruls\{int_val,string_val};
 use core\main\controller\abstract_controller;
+use core\exception\catch_exception;
 
 class route_validator{
     private static $Items=[];
-    public static function route_valid(string $url,string $name,abstract_controller $abstract_controller,string $method=''){
-        //echo 'ok';
+    public static function route_valid(string $url,string $name,abstract_controller $abstract_controller,string $method,$list_of_contollers){
+        self::uniqName($name,$list_of_contollers);
     }
-    public static function url_valid(array $urls,array $routs ) : array{
+    public static function url_valid(array $urls,array $routs ) : array
+    {
         $validator=['int'=>new int_val, 'string'=>new string_val];
         $index=0;
         foreach($routs as $rout){
@@ -28,12 +30,23 @@ class route_validator{
         }
         return $urls;
     }
-    private static function pregmatch(string $parten,string $value,int $index) : void{
+    private static function pregmatch(string $parten,string $value,int $index) : void
+    {
         if(preg_match('/{{'.$parten.':[a-z]*}}$/',$value)){
             array_push(self::$Items,[
                 'type' => $parten,
                 'index'=> $index
             ]);
+        }
+    }
+    private static function uniqName(string $name,array $list_of_contollers): void
+    {
+        $foud=false;
+        foreach($list_of_contollers as $controller){
+            if($controller['name']==$name){
+                $foud=true;
+                catch_exception::throw_New('controller with name '.$name.' arlerdy exixt ',true);
+            }
         }
     }
 }
