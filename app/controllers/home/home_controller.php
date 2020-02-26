@@ -3,12 +3,16 @@ namespace app\controllers\home;
 use core\main\controller\abstract_controller;
 class home_controller extends abstract_controller{
     function main(array $request){
-        \vd($request);
+        $this->onPost('submit','form',[]);
+        echo $this->render('app/controllers/home/index.html',[
+            '{{text}}' => 'tryj2',
+            '{{textf}}'=>'tryj'
+        ]);
+    }
+    function form(array $attributes,array $posts){
+        //\vd($posts);
     }
     function test(array $request){
-        \vd($request);
-    }    
-    function test2(){
-        echo 'jryi6i67ij';
-    }    
+        $this->render('index.html',[]);
+    }     
 }

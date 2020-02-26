@@ -1,10 +1,10 @@
 <?php
 use core\main\router\{router_controller,router_main_controler};
 use app\controllers\home\home_controller;
-router_controller::add('home','home',new home_controller);
-router_controller::add('my/home/{{int:name}}','myhome',new home_controller,'test');
-router_controller::add('my/kome/{{int:name}}','myhome2',new home_controller,'test');
-router_controller::add('m4/home','my2home',new home_controller);
+router_controller::add('home','home',home_controller::create(),'main');
+router_controller::add('my/home/{{int:name}}','myhome',home_controller::create(),'test');
+router_controller::add('my/kome/{{int:name}}','myhome2',home_controller::create(),'test');
+router_controller::add('m4/home','my2home',home_controller::create());
 $router_main_controler=new router_main_controler(router_controller::return_Route());
 $router_main_controler->run_Controller();
 /*
