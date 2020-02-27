@@ -5,8 +5,9 @@ class home_controller extends abstract_controller{
     function main(array $request){
         $this->onPost('submit','form',[]);
         echo $this->render('app/controllers/home/index.html',[
-            '{{text}}' => 'tryj2',
-            '{{textf}}'=>'tryj'
+            '{{text}}'     =>   'tryj2',
+            '{{textf}}'    =>   'tryj',
+            '{{loopTest}}' =>   [['name'=>'kot'],['name'=>'pies']]
         ]);
     }
     function form(array $attributes,array $posts){

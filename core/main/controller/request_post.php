@@ -6,6 +6,7 @@ class request_post{
         if(isset($_POST[$value])){
             return true;
         }
+        return false;
     }
     public function return_posts_request() :array
     {
