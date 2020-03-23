@@ -1,10 +1,11 @@
 <?php
 namespace app\controllers\home;
 use core\main\controller\abstract_controller;
-use app\models\test2;
+use app\models\{test2,onetoonetest};
 class home_controller extends abstract_controller{
     function main(array $request){
-        new test2();
+        $model=new test2();
+        $model->insert([['colum'=>'erg','value'=>'terhst'],['colum'=>'relation_key','value'=>'1']]);
         /*
         $this->onPost('submit','form',[]);
         echo $this->render('app/controllers/home/index.html',[

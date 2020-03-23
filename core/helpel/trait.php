@@ -1,6 +1,12 @@
 <?php
 use core\exception\catch_exception;
 trait array_manipulation{
+    public function add_if_not_exist(array $array,array $arguments){
+        if(count($array)<$arguments['limit']){
+            return true;
+        }
+        return false;
+    }
     public function if_isset_in_array(array $array, string $key) : string 
     {
         if(isset($array[$key])){
