@@ -1,4 +1,5 @@
 <?php
+/*
     namespace CoreMain;
     use Coreinterface\modelCi;
     use helpels\urls;
@@ -167,4 +168,5 @@
             self::$table=$sql->escepeString(self::$table);
         }
     }
+*/
 ?>
