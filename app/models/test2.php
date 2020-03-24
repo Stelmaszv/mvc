@@ -11,7 +11,7 @@ class test2 extends abstract_model{
         ]);
         $this->add([
             'colum'=> 'relation_key',
-            'type' => $this->relation_one_to_many(new onetoonetest)
+            'type' => $this->many_to_many($this,new onetoonetest())
         ]);
     }
 }

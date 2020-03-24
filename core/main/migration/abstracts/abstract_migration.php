@@ -152,6 +152,7 @@ abstract class abstract_migration{
     private function execute_relations():void
     {
         foreach($this->querys['added'] as $el){
+            
             $query=$this->db->run_Query($el,'Executed query : '.$el,[]);
             text_in_consol::consol_log($query);
         }
