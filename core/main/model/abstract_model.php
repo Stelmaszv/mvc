@@ -42,12 +42,13 @@ abstract class abstract_model{
             }
         }
         if(!$count){
+            $colum=$this->faind_colum_in_table($item['colum']);
             if($valid){
-                \vd($item[$key]);
-                $colum=$this->faind_colum_in_table($item['colum']);
                 $colum['type']->valid($item[$key]);
             }
-            array_push($this->insert[$insert],$item[$key]);
+            if(!$colum['relation']){
+                array_push($this->insert[$insert],$item[$key]);
+            }
         }
 
     }
@@ -87,7 +88,11 @@ abstract class abstract_model{
     public function get_one(int $id) : array
     {   
         $sql='SELECT * FROM '.$this->table.' WHERE id = '.intval($id);
-        return $this->db->get_Query_Loop($sql)[0];
+        $object=$this->db->get_Query_Loop($sql);
+        if(!$object){
+            catch_exception::throw_New('Record with id "'.$id.'"  does not exixt in table "'.$this->table.'"',true);
+        }
+        return $object[0];
     }
     public function get_many_to_many(string $field) : array
     {
