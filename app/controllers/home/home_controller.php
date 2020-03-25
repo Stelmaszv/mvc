@@ -5,9 +5,8 @@ use app\models\{test2,onetoonetest};
 class home_controller extends abstract_controller{
     function main(array $request){
         $model=new test2();
-        $model->get_one(1);
         $model2=new onetoonetest();
-        $model->insert([['colum'=>'erg','value'=>'terhst'],['colum'=>'relation_key','value'=>[314,1]]]);
+        $model->insert([['colum'=>'erg','value'=>'terhst'],['colum'=>'relation_key','value'=>[1,1]]]);
         /*
         $this->onPost('submit','form',[]);
         echo $this->render('app/controllers/home/index.html',[

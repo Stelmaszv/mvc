@@ -104,7 +104,7 @@ abstract class abstract_migration{
         $this->if_Isset_FOREIGN_KEYS();
         if($this->FOREIGN_KEY){
             $this->Create_FOREIGN_KEYS();
-            $this->query.=$this->add_FOREIGN_KEYS();
+            //$this->query.=$this->add_FOREIGN_KEYS();
         }
         $this->query.= ')';
     }
