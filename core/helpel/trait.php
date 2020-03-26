@@ -34,6 +34,18 @@ trait array_manipulation{
         return $add;
     }
 }
+trait relation_valid{
+    public function faind_in_table(string $function,array $value){
+        $this->$function($value);
+    }
+    public function many_to_one($value){
+        $sql='SELECT * FROM '.$value['table'].' where id='.$value['value'].'';
+        $array=$this->db->get_Query_Loop($sql);
+        if(!count($array)){
+            catch_exception::throw_New('Record with id "'.$value['value'].'" does not exist in table "'.$value['table'].'"',false);
+        }
+    }
+}
 trait trait_Db{
     public function show_Columns(string $table) : array
     {

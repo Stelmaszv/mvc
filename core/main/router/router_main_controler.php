@@ -1,19 +1,22 @@
 <?php
 namespace core\main\router;
 use core\exception\catch_exception;
+use core\db\set_db;
 class router_main_controler{
     private $route_list;
     function __construct(array $route_list){
         $this->route_list=$route_list;
+        $this->db=new set_db();
+        $this->db=$this->db->get_Engin();
     }
     public function run_Controller() :  void
     {
         $controller=$this->faind_Contrroller();
         if(empty($controller['medhod'])){
-            $controller['conroler']->main($controller['url']);
+            $controller['conroler']->main($controller['url'],$this->db);
         }else{
             $medhod=$controller['medhod'];
-            $controller['conroler']->$medhod($controller['url']);
+            $controller['conroler']->$medhod($controller['url'],$this->db);
         }
     }
     private function faind_Contrroller() : array

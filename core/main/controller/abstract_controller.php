@@ -25,5 +25,5 @@ abstract class abstract_controller{
             return $this->$method($attributes,$this->post->return_posts_request());
         }
     }
-    protected abstract function main(array $request);
+    protected abstract function main(array $request,object $db);
 }

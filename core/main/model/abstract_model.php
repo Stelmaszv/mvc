@@ -1,16 +1,15 @@
 <?php
 namespace core\main\model;
-use core\db\set_db;
-use core\main\model\modelValidator\{varchar,many_to_many};
+use core\main\model\modelValidator\{varchar,many_to_many,one_to_many,many_to_one};
 use core\exception\catch_exception;
+use core\db\set_db;
 abstract class abstract_model{
     use \class_Name;
-    private $db;
-    private $table;
+    protected $db;
+    public $table;
     protected $setings=array();
-    public function __construct(){
-        $this->db=new set_db();
-        $this->db=$this->db->get_Engin();
+    public function __construct(object $db){
+        $this->db=$db;
         $this->table=$this->class_Name();
         $this->validate();
     }
@@ -94,12 +93,12 @@ abstract class abstract_model{
         }
         return $object[0];
     }
-    public function get_many_to_many(string $field) : array
+    public function get_relation(string $field) : array
     {
         foreach($this->setings as $relation){
             if($field==$relation['colum']){
                 if(!method_exists($relation['type'], 'get_objects')){
-                    catch_exception::throw_New('Colum '.$relation['colum'].' dont have relation many to many',true);
+                    catch_exception::throw_New('Colum '.$relation['colum'].' dont have relation many to many or one to many',true);
                 }
                 return $relation['type']->get_objects();
             }
@@ -112,5 +111,13 @@ abstract class abstract_model{
     public function many_to_many(abstract_model $relation,abstract_model $relation2) : many_to_many
     {
         return new many_to_many($relation,$relation2);
+    }
+    public function many_to_one(abstract_model $relation,string $table) : many_to_one
+    {
+        return new many_to_one($relation,$table);
+    }
+    public function one_to_many(abstract_model $relation,string $table)
+    {
+        return new one_to_many($relation,$table);
     }
 }
