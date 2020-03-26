@@ -6,7 +6,7 @@ use core\db\set_db;
 class home_controller extends abstract_controller{
     function main(array $request,object $db){
         $model2=new onetoonetest($db);
-        $model2->insert([['colum'=>'text','value'=>'terhst']]);
+        $model2->insert([['colum'=>'text','value'=>'terhst'],['colum'=>'relation_key','value'=>[1,1]]]);
         //$this->db=new set_db();
         //$this->db=$this->db->get_Engin();
         //$model2=new onetoonetest($this->db);

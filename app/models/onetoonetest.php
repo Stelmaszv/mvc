@@ -12,7 +12,7 @@ class onetoonetest extends abstract_model{
         ]);
         $this->add([
             'colum'    => 'relation_key',
-            'type'     => $this->one_to_many($this,'test2'),
+            'type'     => $this->many_to_many($this,'test2'),
             'relation' => true
         ]);
     }

@@ -39,11 +39,18 @@ trait relation_valid{
         $this->$function($value);
     }
     public function many_to_one($value){
-        $sql='SELECT * FROM '.$value['table'].' where id='.$value['value'].'';
+        $this->faind_id($value['table'],$value['value']);
+    }
+    private function faind_id(string $table,int $id){
+        $sql='SELECT * FROM '.$table.' where id='.$id.'';
         $array=$this->db->get_Query_Loop($sql);
         if(!count($array)){
-            catch_exception::throw_New('Record with id "'.$value['value'].'" does not exist in table "'.$value['table'].'"',false);
+            catch_exception::throw_New('Record with id "'.$id.'" does not exist in table "'.$table.'"',false);
         }
+    }
+    public function many_to_many($value){
+        $this->faind_id($value['table'],$value['value'][0]);
+        $this->faind_id($value['table2'],$value['value'][1]);
     }
 }
 trait trait_Db{

@@ -108,15 +108,15 @@ abstract class abstract_model{
     {
         return new varchar();
     }
-    public function many_to_many(abstract_model $relation,abstract_model $relation2) : many_to_many
+    public function many_to_many(abstract_model $relation,string $table) : many_to_many
     {
-        return new many_to_many($relation,$relation2);
+        return new many_to_many($relation,$table);
     }
     public function many_to_one(abstract_model $relation,string $table) : many_to_one
     {
         return new many_to_one($relation,$table);
     }
-    public function one_to_many(abstract_model $relation,string $table)
+    public function one_to_many(abstract_model $relation,string $table) : one_to_many
     {
         return new one_to_many($relation,$table);
     }
