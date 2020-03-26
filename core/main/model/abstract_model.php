@@ -1,6 +1,6 @@
 <?php
 namespace core\main\model;
-use core\main\model\modelValidator\{varchar,many_to_many,one_to_many,many_to_one};
+use core\main\model\modelValidator\{varchar,many_to_many,one_to_many,many_to_one,one_to_one};
 use core\exception\catch_exception;
 use core\db\set_db;
 abstract class abstract_model{
@@ -119,5 +119,9 @@ abstract class abstract_model{
     public function one_to_many(abstract_model $relation,string $table) : one_to_many
     {
         return new one_to_many($relation,$table);
+    }
+    public function one_to_one(abstract_model $relation,string $table)  : one_to_one
+    {
+        return new one_to_one($relation,$table);
     }
 }

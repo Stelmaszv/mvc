@@ -52,6 +52,9 @@ trait relation_valid{
         $this->faind_id($value['table'],$value['value'][0]);
         $this->faind_id($value['table2'],$value['value'][1]);
     }
+    public function one_to_one($value){
+        $this->faind_id($value['table'],$value['value']);
+    }
 }
 trait trait_Db{
     public function show_Columns(string $table) : array

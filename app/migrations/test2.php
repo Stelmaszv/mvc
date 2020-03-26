@@ -10,7 +10,7 @@ class test2 extends abstract_migration{
         $this->add('relation',[
             'name'=>'relation','lenght'=>100,
             'relation'=>[
-                'relation_Type'                =>  'many_to_many',
+                'relation_Type'                =>  'one_to_one',
                 'FK'                           =>  true,
                 'FOREIGN_KEY_VALUE'            =>  'relation_key',
                 'FOREIGN_KEY_REFERENCES'       =>  'onetoonetest',
