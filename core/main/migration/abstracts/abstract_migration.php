@@ -4,20 +4,21 @@ use core\db\set_db;
 use core\helpel\clas\text_in_consol;
 use core\main\migration\columns\{table,intVal,varchar};
 use core\main\migration\relations\{one_to_one,one_to_many,many_to_many};
+use core\main\model\model_render;
 abstract class abstract_migration{
     protected $reset=false;
-    private $query='';
-    private $query_elemnts=[];
-    private $query_argumants=[];
-    private $querys=['actual'=>[],'added'=>[]];
-    private $relations=[];
-    private $is_Table=false;
-    private $objects=[];
-    private $query_Type;
-    private $FOREIGN_KEY=false;
-    public $item=0;
-    public $table;
-    public $db;
+    private   $query='';
+    private   $query_elemnts=[];
+    private   $query_argumants=[];
+    private   $querys=['actual'=>[],'added'=>[]];
+    private   $relations=[];
+    private   $is_Table=false;
+    private   $objects=[];
+    private   $query_Type;
+    private   $FOREIGN_KEY=false;
+    public    $item=0;
+    public    $table;
+    public    $db;
     use \class_Name, \singleton_Create,\array_manipulation;
     function __construct()
     {
@@ -35,6 +36,9 @@ abstract class abstract_migration{
         $run=$this->query_Type;
         $query=$this->objects[$this->if_isset_in_array($this->objects,'table')]->$run(['table'=>$this->table]);
         array_push($this->query_elemnts,$query);
+    }
+    public function return_query_argumants(){
+        return $this->query_argumants;
     }
     protected function add(string $object,array $argument) : void
     {
@@ -104,7 +108,6 @@ abstract class abstract_migration{
         $this->if_Isset_FOREIGN_KEYS();
         if($this->FOREIGN_KEY){
             $this->Create_FOREIGN_KEYS();
-            //$this->query.=$this->add_FOREIGN_KEYS();
         }
         $this->query.= ')';
     }
@@ -137,7 +140,7 @@ abstract class abstract_migration{
             $this->query_Type = 'Create';
         }
     }
-    private function faind_Primary_Key() : string
+    public function faind_Primary_Key() : string
     {
         $name='';
         foreach($this->query_argumants as $el){
@@ -152,7 +155,6 @@ abstract class abstract_migration{
     private function execute_relations():void
     {
         foreach($this->querys['added'] as $el){
-            
             $query=$this->db->run_Query($el,'Executed query : '.$el,[]);
             text_in_consol::consol_log($query);
         }
@@ -169,6 +171,7 @@ abstract class abstract_migration{
                 $this->execute_relations();
             }
         }
+        new model_render($this);
     }
     // add prenent run in extends 
     public function __call($method, $args) {
