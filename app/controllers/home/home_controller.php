@@ -5,8 +5,13 @@ use app\models\{test2,onetoonetest};
 use core\db\set_db;
 class home_controller extends abstract_controller{
     function main(array $request,object $db){
-        $model2=new onetoonetest($db);
-        $model2->insert([['colum'=>'text','value'=>'terhst'],['colum'=>'test2','value'=>5]]);
+        echo $this->render('app/controllers/home/home_templete.php',[
+            'text'     =>   'kot',
+            'textf'    =>   'tryj',
+            'loopTest' =>   [['name'=>'kot'],['name'=>'pies']]
+        ]);
+        //$model2=new onetoonetest($db);
+        //$model2->insert([['colum'=>'text','value'=>'terhst'],['colum'=>'test2','value'=>1]]);
         //$this->db=new set_db();
         //$this->db=$this->db->get_Engin();
         //$model2=new onetoonetest($this->db);

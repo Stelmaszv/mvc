@@ -171,7 +171,7 @@ abstract class abstract_migration{
                 $this->execute_relations();
             }
         }
-        new model_render($this);
+        //new model_render($this);
     }
     // add prenent run in extends 
     public function __call($method, $args) {

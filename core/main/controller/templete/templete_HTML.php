@@ -1,16 +1,17 @@
 <?php
-namespace core\main\controller;
-class templete{
+namespace core\main\controller\templete;
+use core\main\controller\templete\templete_interface;
+class templete_HTML implements templete_interface{
     private $code;
     private $varbles;
-    public function init(string $file,array $attributes){
-        $this->set_Templete($file);
-        $file=$this->show_templpete();
-        $file=$this->get_varables($attributes);
-        $file=$this->get_ifs($file,$attributes);
-        $file=$this->get_loops($file,$attributes);
-        $file=$this->generate_templete($file);
-        return $file;
+    private $file='';
+    public function init(string $file,array $arguments){
+          $this->set_Templete($file);
+          $this->file=$this->show_templpete();
+       // $this->file=$this->get_varables($attributes);
+       // $this->file=$this->get_ifs($file,$attributes);
+       // $this->file=$this->get_loops($file,$attributes);
+       // $this->file=$this->generate_templete($file);
     }
     private function set_Templete(string $file){
         $this->code=file_get_contents($file);
@@ -86,5 +87,9 @@ class templete{
             $file = str_replace($key,$val,$file);
             $file = preg_replace('/\{{(.*?)}}/i', '', $file);
         return $file;
+    }
+    public function __toString()
+    {
+        return $this->file;
     }
 }

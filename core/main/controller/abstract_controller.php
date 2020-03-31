@@ -2,19 +2,16 @@
 namespace core\main\controller;
 use core\main\controller\abstract_controller;
 use core\exception\catch_exception;
+use core\main\controller\templete\templete_Switch;
 abstract class abstract_controller{
     use \class_Name,\singleton_Create;
     private $templete;
     private function __construct(){
-        $this->templete=new templete;
         $this->post=new request_post;
+        $this->templete=new templete_Switch;
     }
     protected function render(string $file,array $attributes){
-        if(file_exists($file)){
-            return $this->templete->init($file,$attributes);
-        }else{
-            catch_exception::throw_New('Templete "'.$file.'" not foud ',false);
-        }
+        return $this->templete->return_obj($file,$attributes);
     }
     protected function onPost(string $post,string $method,array $attributes)
     {

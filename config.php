@@ -1,7 +1,9 @@
 <?php
 session_start();
 use Corelanguage\language;
+$config['projectname']='mvc';
 // basic settings //
+/*
 $config['defultlanguage']='eng';
 $config['debag']=true;
 $config['projectname']='mvc';
@@ -34,7 +36,7 @@ $config['defultController']=array(
     'nocss'              => false,
     'css'                => $css
 );
-$config['homeControler']='home';
+*/
 // data base settings
 $config['db']=array(
     'host'               => 'localhost',
@@ -56,8 +58,12 @@ $auth=[
     'password'           => 'password',
     'passwordOptions'    =>  $passwordOptions
 ];
+$controller=[
+    'home'     => 'home',
+    'templete' => 'HTML', // PHP, HTML ,API
+];
 $config['auth']=$auth;
-
+$config['controller']=$controller;
 define('config',$config);
 /*set Url*/
 if(isset($_GET['url'])){

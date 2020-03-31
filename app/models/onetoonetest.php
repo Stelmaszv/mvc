@@ -1,26 +1,18 @@
 <?php 
-    namespace app\models; 
-    use core\main\model\abstract_model;
-        class onetoonetest extends abstract_model { 
-        function validate() : void 
+namespace app\models; 
+use core\main\model\abstract_model;
+class onetoonetest extends abstract_model { 
+function validate() : void 
         {
             $this->add([
-                "colum"    => ,
-                "type"     =>$this->(),
-                "relation" =>,
-            ])
-            
+                'colum'    => 'text',
+                'type'     => $this->varchar(),
+                'relation' => false
+            ]);
             $this->add([
-                "colum"    => ,
-                "type"     =>$this->varchar(),
-                "relation" =>,
-            ])
-            
-            $this->add([
-                "colum"    => text,
-                "type"     =>$this->varchar(),
-                "relation" =>true,
-            ])
-            
+                'colum'    => 'test2',
+                'type'     => $this->many_to_many($this,'test2'),
+                'relation' => true
+            ]);
         }
-        }
+}
