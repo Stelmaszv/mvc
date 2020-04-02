@@ -2,7 +2,7 @@
 namespace core\main\model\modelValidator;
 use core\db\set_db;
 class one_to_many{
-    use \relation_valid;
+    use \relation_valid,\class_Name;
     private $table;
     private $table2;
     function __construct($object,$table){
@@ -10,7 +10,6 @@ class one_to_many{
         $this->db=$this->db->get_Engin();
         $this->table=$table;
         $this->table2=$object->table;
-
     }
     function valid($value) :vaid
     {

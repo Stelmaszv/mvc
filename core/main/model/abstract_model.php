@@ -7,14 +7,14 @@ abstract class abstract_model{
     use \class_Name;
     protected $db;
     public $table;
-    protected $setings=array();
+    public $setings=array();
     public function __construct(object $db){
         $this->db=$db;
         $this->table=$this->class_Name();
         $this->validate();
     }
     protected abstract function validate() : void;
-    public function getAll() : array
+    public function get_All() : array
     {
         return $this->db->get_Query_Loop('SELECT * FROM '.$this->table.'');
     }
@@ -108,9 +108,9 @@ abstract class abstract_model{
     {
         return new varchar();
     }
-    public function many_to_many(abstract_model $relation,string $table) : many_to_many
+    public function many_to_many(abstract_model $relation,string $table,string $inForm) : many_to_many
     {
-        return new many_to_many($relation,$table);
+        return new many_to_many($relation,$table,$inForm);
     }
     public function many_to_one(abstract_model $relation,string $table) : many_to_one
     {

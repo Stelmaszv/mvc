@@ -38,7 +38,7 @@ $config['defultController']=array(
 );
 */
 // data base settings
-$config['db']=array(
+$config['db']=[
     'host'               => 'localhost',
     'username'           => 'root',
     'title'              => $config['projectname'],
@@ -47,7 +47,7 @@ $config['db']=array(
     'dbCOLLATE'          => 'utf8_polish_ci',
     'dbengin'            => 'mysqli',
     'password'           => ''
-);
+];
 // auth 
 $passwordOptions = [
     'cost' => 12,
@@ -60,7 +60,7 @@ $auth=[
 ];
 $controller=[
     'home'     => 'home',
-    'templete' => 'HTML', // PHP, HTML ,API
+    'templete' => 'PHP', // PHP, HTML ,API
 ];
 $config['auth']=$auth;
 $config['controller']=$controller;

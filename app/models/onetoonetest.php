@@ -11,7 +11,7 @@ function validate() : void
             ]);
             $this->add([
                 'colum'    => 'test2',
-                'type'     => $this->many_to_many($this,'test2'),
+                'type'     => $this->many_to_many($this,'test2','erg'),
                 'relation' => true
             ]);
         }

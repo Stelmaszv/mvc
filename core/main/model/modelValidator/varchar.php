@@ -2,6 +2,7 @@
 namespace core\main\model\modelValidator;
 use core\exception\catch_exception;
 class varchar{
+    use \ class_Name;
     function valid($value){
         if(is_string($value)){
             return $value;

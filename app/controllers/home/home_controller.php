@@ -3,13 +3,18 @@ namespace app\controllers\home;
 use core\main\controller\abstract_controller;
 use app\models\{test2,onetoonetest};
 use core\db\set_db;
+use core\main\form\form_model;
 class home_controller extends abstract_controller{
     function main(array $request,object $db){
+        $this->model=new onetoonetest($db);
+        $form = new form_model($this->model,0,'submit','POST');
         echo $this->render('app/controllers/home/home_templete.php',[
             'text'     =>   'kot',
             'textf'    =>   'tryj',
-            'loopTest' =>   [['name'=>'kot'],['name'=>'pies']]
+            'form'     =>   $form,
+             'loopTest' =>   [['name'=>'kot'],['name'=>'pies']]
         ]);
+        $this->onPost('submit','form',[]);
         //$model2=new onetoonetest($db);
         //$model2->insert([['colum'=>'text','value'=>'terhst'],['colum'=>'test2','value'=>1]]);
         //$this->db=new set_db();
@@ -26,8 +31,8 @@ class home_controller extends abstract_controller{
         */
         
     }
-    function form(array $attributes,array $posts){
-        //\vd($posts);
+    protected function form(array $attributes,array $posts){
+        $this->model->insert([['colum'=>'text','value'=>$posts['text']],['colum'=>'test2','value'=>$posts['test2']]]);
     }
     function test(array $request){
         $this->render('index.html',[]);
